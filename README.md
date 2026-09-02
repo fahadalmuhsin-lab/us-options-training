@@ -1,20 +1,14 @@
 # صقر العقود | SAQR OPTIONS
 
-نسخة Static جاهزة للرفع مباشرة على Vercel أو أي استضافة ملفات ثابتة.
+Static demo build. No database or Node.js required.
 
-## الدخول التجريبي
-- المشترك: 0582477779
-- كلمة المرور: Aa!@!707
-- المدير: admin
-- كلمة المرور: Admin@123
+## Demo accounts
+- Subscriber: `0582477779` / `Aa!@!707`
+- Admin: `admin` / `Saqr@2026`
 
-## الأسعار
-- شهر: 99 ر.س
-- 3 أشهر: 229 ر.س
-- 6 أشهر: 499 ر.س
+## Subscription prices
+- 1 month: 99 SAR
+- 3 months: 229 SAR
+- 6 months: 499 SAR
 
-## ملاحظات
-- الدخول يقتصر على مشترك أو مدير؛ الزائر يرى الصفحة التسويقية فقط.
-- لا توجد صفحة تقارير للمشترك.
-- المدير لديه لوحة تحكم وإدارة مستخدمين وتواصل معنا.
-- العلامة المائية للمشترك هي رقم الجوال، مكررة بخفة فوق محتوى الصفحات.
+All plans include: live data, instant alerts, analytics.
