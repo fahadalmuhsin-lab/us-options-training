@@ -138,7 +138,7 @@ function selectSymbol(s){if(!symbols[s])return;state.symbol=s;save();if(location
 function render(){
  let path=location.hash.replace(/^#/,'')||'/';
  if(path==='/logout'){logout();return}
- if(path==='/'){layout(publicHome(),'/');return}
+ if(path==='/'){if(state.role==='member'){layout(memberHome(),'/');return}if(state.role==='admin'){layout(admin(),'/');return}layout(publicHome(),'/');return}
  if(path==='/subscription'){if(state.role==='visitor'){layout(subscription(),path,false)}else{go('#/');return}}
  if(path==='/login'){layout(login(),path,false);return}
  if(path==='/contact'){layout(contact(),path,state.role!=='visitor');return}
