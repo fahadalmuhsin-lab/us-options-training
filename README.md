@@ -1,29 +1,10 @@
-# SAQR OPTIONS — UX TEST BUILD
+# SAQR OPTIONS — Updated
 
-هذا إصدار تجريبي ثابت (Static) قابل للرفع مباشرة على الاستضافة لاختبار تجربة المستخدم.
+Latest UX build for the SAQR OPTIONS static prototype.
 
-## التشغيل
-- ارفع محتويات المجلد إلى الاستضافة.
-- افتح `index.html`.
-- لا يحتاج قاعدة بيانات أو Node.js في هذه النسخة التجريبية.
+## Latest requested change
+In the Admin → User Management view, every subscriber row now includes:
+- **تعيين مشرف** — toggles supervisor assignment for that subscriber.
+- **سبب الحظر** — opens a field to enter/update the ban reason. Saving a reason marks the subscriber as banned; clearing it removes the ban state.
 
-## اللغات
-- العربية والإنجليزية تعملان من زر اللغة.
-- اتجاه الصفحة RTL/LTR يتبدل بالكامل مع اللغة.
-
-## الأدوار التجريبية
-من صفحة تسجيل الدخول يمكن اختيار:
-- 
-- Subscriber / مشترك
-- Admin / مدير
-
-الأدوار هنا لأغراض تجربة الواجهة والصلاحيات فقط، وليست نظام مصادقة حقيقي.
-
-## التنقل
-الرئيسية، العقود، المفضلة، التحليلات، التقارير، الإشعارات، الاشتراك، تسجيل الدخول، تواصل معنا، ولوحة الإدارة.
-
-## ملاحظات التصميم
-- تم اعتماد نفس نظام الألوان والتخطيط الداكن الموجود في الصور المرجعية.
-- CALL أخضر و PUT أحمر.
-- تم حذف الشعار من الواجهة حسب الاعتماد الحالي.
-- التصميم Responsive لاختبار الجوال.
+All other existing project files and functionality are preserved.
