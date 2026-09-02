@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>US Options Training</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#060a15;color:#f5f7fb;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Tahoma,Arial,sans-serif}
+.app{max-width:900px;margin:auto;padding:18px 14px 35px}.header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}.title{font-size:26px;font-weight:900;line-height:1.25}.title i{color:#20e7a0;font-style:normal}.live{border:1px solid #176b59;background:#06241e;color:#35e8ad;border-radius:18px;padding:8px 12px;font-size:12px;white-space:nowrap}
+.companies{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}.company{border:1px solid #1c2942;background:#0b1221;color:#e9edf6;border-radius:14px;padding:14px 5px;font-size:17px;font-weight:800}.company.active{border-color:#f3c94d;color:#f3c94d;background:#211a09;box-shadow:0 0 20px #f3c94d18}
+.card{background:linear-gradient(145deg,#0b1120,#080d19);border:1px solid #1c2942;border-radius:20px;overflow:hidden;margin-bottom:14px;box-shadow:0 18px 45px #0006}.head{padding:17px;border-bottom:1px solid #18243a;display:flex;justify-content:space-between;align-items:center}.ticker{font-size:38px;font-weight:900}.quote{text-align:left}.quote small{display:block;color:#7f8aa0}.price{font-size:25px;color:#f3c94d;font-weight:900;margin-top:3px}
+.signal{text-align:center;padding:25px 15px 22px}.dir{font-size:62px;font-weight:950;letter-spacing:-2px}.call{color:#20e7a0}.put{color:#ef315d}.timer{font:46px/1 monospace;margin:8px 0 10px}.muted{color:#8290a6;font-size:12px}
+.contract{padding:15px;border-top:1px solid #18243a}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.box{background:#0b1424;border:1px solid #1a2941;border-radius:13px;padding:12px}.box small{display:block;color:#7f8aa0;margin-bottom:5px}.box strong{font-size:17px}.targets{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:9px}.target{text-align:center}.target b{display:block;font-size:17px}.entry{color:#f3c94d}.stop{color:#ef315d}
+.status{margin-top:13px;border:1px solid #293650;background:#09111e;border-radius:13px;padding:13px;text-align:center;line-height:1.7}.status strong{font-size:14px}.disclaimer{display:block;color:#7f899a;font-size:10px;margin-top:4px}
+.chain-head,.chain-row{display:grid;grid-template-columns:1fr 1.5fr .8fr .8fr;gap:8px;align-items:center;padding:11px 15px}.chain-head{color:#7f8aa0;font-size:11px;border-bottom:1px solid #18243a}.chain-row{border-bottom:1px solid #111c30;font-size:14px}.bar{height:8px;border-radius:8px;background:linear-gradient(90deg,#3b1021,#e63e69)}.bid{color:#20e7a0}.ask{color:#ef315d}
+.note{padding:14px;text-align:center;color:#6f7c92;font-size:11px}.hidden{display:none}
+@media(max-width:560px){.title{font-size:21px}.live{font-size:10px}.company{font-size:14px;padding:12px 2px}.ticker{font-size:31px}.price{font-size:21px}.targets{grid-template-columns:repeat(2,1fr)}.chain-head,.chain-row{grid-template-columns:.8fr 1.3fr .7fr .7fr;padding:10px 10px;font-size:12px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="header">
+  <div class="title">عقود الخيارات • <i>US OPTIONS</i><br>الأمريكية</div>
+  <div class="live">● واجهة تفاعلية</div>
+</header>
+
+<div class="companies" id="companies">
+  <button class="company active" data-c="CRM">CRM</button>
+  <button class="company" data-c="META">META</button>
+  <button class="company" data-c="AAPL">AAPL</button>
+  <button class="company" data-c="NVDA">NVDA</button>
+  <button class="company" data-c="AMZN">AMZN</button>
+</div>
+
+<section class="card">
+  <div class="head">
+    <div><div class="ticker" id="ticker">CRM</div><div class="muted" id="date">بيانات تدريبية • 02/09/2026</div></div>
+    <div class="quote"><small>سعر السهم</small><div class="price" id="stockPrice">$258.11</div></div>
+  </div>
+  <div class="signal">
+    <div class="dir call" id="direction">CALL</div>
+    <div class="timer" id="timer">17:34</div>
+    <div class="muted">الوقت المتبقي للإشارة الحالية</div>
+  </div>
+</section>
+
+<section class="card contract">
+  <div class="head" style="margin:-15px -15px 15px"><b>العقد المقترح للتدريب</b><span class="muted" id="contractTicker">CRM</span></div>
+  <div class="grid">
+    <div class="box"><small>العقد</small><strong id="contract">CRM 275 Call</strong></div>
+    <div class="box"><small>الاتجاه</small><strong id="contractDirection" class="call">CALL</strong></div>
+    <div class="box"><small>سعر الدخول</small><strong class="entry">$<span id="entry">1.72</span></strong></div>
+    <div class="box"><small>تاريخ الانتهاء</small><strong id="expiry">11 سبتمبر 2026</strong></div>
+  </div>
+  <div class="targets">
+    <div class="box target"><small>🎯 الهدف 1</small><b id="t1">$2.40</b></div>
+    <div class="box target"><small>🎯 الهدف 2</small><b id="t2">$3.10</b></div>
+    <div class="box target"><small>🎯 الهدف 3</small><b id="t3">$4.00</b></div>
+    <div class="box target"><small>🛑 وقف الخسارة</small><b class="stop" id="stop">$1.15</b></div>
+  </div>
+  <div class="status">
+    <strong id="training">⏳ يجب الانتظار حتى وصول سعر الدخول لبدء التدريب</strong>
+    <span class="disclaimer">( يُعرض لغرض التدريب ولا يُعتبر توصية بيع أو شراء )</span>
+  </div>
+</section>
+
+<section class="card">
+  <div class="head"><b>سلسلة العقود</b><span class="muted" id="chainTicker">CRM</span></div>
+  <div class="chain-head"><span>Strike</span><span>حجم العقد</span><span>Bid</span><span>Ask</span></div>
+  <div id="chain"></div>
+</section>
+
+<div class="note">الأسعار في هذه النسخة تجريبية وليست بيانات سوق مباشرة.</div>
+</div>
+
+<script>
+const data={
+CRM:{price:'258.11',dir:'CALL',strike:'275',entry:'1.72',expiry:'11 سبتمبر 2026',t:['2.40','3.10','4.00'],stop:'1.15',rows:[['275','89%','1.68','1.72'],['270','76%','2.21','2.28'],['265','63%','2.91','3.02'],['260','54%','3.72','3.88']]},
+META:{price:'578.54',dir:'CALL',strike:'625',entry:'1.90',expiry:'11 سبتمبر 2026',t:['2.70','3.60','4.60'],stop:'1.25',rows:[['625','91%','1.82','1.90'],['620','78%','2.31','2.43'],['615','66%','2.96','3.12'],['610','55%','3.74','3.91']]},
+AAPL:{price:'325.13',dir:'CALL',strike:'327.5',entry:'0.81',expiry:'4 سبتمبر 2026',t:['1.20','1.60','2.10'],stop:'0.50',rows:[['327.5','94%','0.76','0.81'],['330','82%','0.48','0.54'],['332.5','68%','0.29','0.34'],['335','52%','0.17','0.22']]},
+NVDA:{price:'217.44',dir:'PUT',strike:'210',entry:'1.83',expiry:'11 سبتمبر 2026',t:['2.50','3.20','4.20'],stop:'1.20',rows:[['210','93%','1.76','1.83'],['212.5','80%','2.24','2.34'],['215','69%','2.87','2.98'],['217.5','57%','3.61','3.78']]},
+AMZN:{price:'254.92',dir:'PUT',strike:'247.5',entry:'1.82',expiry:'11 سبتمبر 2026',t:['2.50','3.20','4.10'],stop:'1.15',rows:[['247.5','90%','1.75','1.82'],['250','79%','2.17','2.28'],['252.5','65%','2.82','2.94'],['255','53%','3.55','3.71']]}
+};
+
+function render(c){
+ const d=data[c], isPut=d.dir==='PUT';
+ ticker.textContent=contractTicker.textContent=chainTicker.textContent=c;
+ date.textContent='بيانات تدريبية • 02/09/2026';
+ stockPrice.textContent='$'+d.price;
+ direction.textContent=d.dir; direction.className='dir '+(isPut?'put':'call');
+ contract.textContent=`${c} ${d.strike} ${isPut?'Put':'Call'}`;
+ contractDirection.textContent=d.dir; contractDirection.className=isPut?'put':'call';
+ entry.textContent=d.entry; expiry.textContent=d.expiry;
+ t1.textContent='$'+d.t[0]; t2.textContent='$'+d.t[1]; t3.textContent='$'+d.t[2]; stop.textContent='$'+d.stop;
+ training.textContent='⏳ يجب الانتظار حتى وصول سعر الدخول لبدء التدريب';
+ chain.innerHTML=d.rows.map(r=>`<div class="chain-row"><span>${r[0]}</span><span><div class="bar" style="width:${r[1]}"></div></span><span class="bid">${r[2]}</span><span class="ask">${r[3]}</span></div>`).join('');
+}
+document.querySelectorAll('.company').forEach(b=>b.addEventListener('click',()=>{
+ document.querySelectorAll('.company').forEach(x=>x.classList.remove('active')); b.classList.add('active'); render(b.dataset.c);
+}));
+let sec=1054; setInterval(()=>{sec=(sec<=0?1054:sec-1);timer.textContent=String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0')},1000);
+render('CRM');
+</script>
+</body>
+</html>
