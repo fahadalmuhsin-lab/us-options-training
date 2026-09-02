@@ -75,3 +75,14 @@ html[lang="ar"] body{font-family:"Lina Soft","LinaSoft","لينة سوفت",Taho
 @media(max-width:900px){.marketing-grid,.plans{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}.admin-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:760px){.top-menu{top:58px;min-width:165px}.public-main{padding:15px 12px 30px}.marketing-hero h1{font-size:34px}.hero-actions{flex-direction:column}.hero-actions .btn{width:100%}.role-options{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.company-heading{flex-direction:column}.company-bar{gap:5px}.company-arrow{padding:10px}.ticker button{min-width:130px}.period-tabs{overflow:auto}.period-tabs button{white-space:nowrap}.admin-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:430px){.admin-grid{grid-template-columns:1fr}.plan-price{font-size:38px}}
+
+/* SAQR UX v3 requested changes */
+.menu-lines{width:48px;height:48px;border:1px solid var(--line);border-radius:15px;background:#061221;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px}.menu-lines i{display:block;width:19px;height:2px;background:#eef3f8;border-radius:2px}.menu-lines:hover{border-color:var(--blue)}
+.topbar .brand-text{position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap}.top-menu{top:64px}.logout-menu{border-top:1px solid #17395e!important;margin-top:5px;padding-top:14px!important;color:#ff7187!important}.role-options.two{grid-template-columns:1fr 1fr}
+.phone-watermark{position:fixed;inset:50% auto auto 50%;transform:translate(-50%,-50%) rotate(-25deg);font-size:72px;font-weight:900;color:rgba(255,255,255,.035);letter-spacing:3px;pointer-events:none;z-index:0;white-space:nowrap;user-select:none}.main>*:not(.phone-watermark){position:relative;z-index:1}
+.admin-card-btn{text-align:center;border:1px solid var(--line);color:var(--text);cursor:pointer}.admin-card-btn b{display:block;color:#aebbd0;font-size:15px}.admin-card-btn strong{display:block;font-size:38px;margin-top:10px}.admin-card-btn:hover{border-color:var(--blue);transform:translateY(-2px)}.admin-dashboard-cards{grid-template-columns:repeat(4,1fr)}.supervisor-card{min-height:250px}.supervisor-card hr{border:0;border-top:1px solid var(--line);margin:18px 0}.supervisor-card .field{margin:10px 0}
+@media(max-width:760px){.phone-watermark{font-size:38px}.admin-dashboard-cards{grid-template-columns:1fr 1fr}.topbar .brand-text{font-size:20px}}
+@media(max-width:430px){.admin-dashboard-cards{grid-template-columns:1fr}}
+
+.admin-manage{margin-top:20px}.admin-manage-row{display:grid;grid-template-columns:auto auto 1fr auto auto;gap:12px;align-items:center}.admin-manage-row .field{margin:0;min-width:180px}.admin-manage-row .field label{display:none}
+@media(max-width:760px){.admin-manage-row{grid-template-columns:1fr 1fr}.admin-manage-row .field{grid-column:1/-1}}
