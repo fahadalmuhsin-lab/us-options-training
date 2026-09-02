@@ -7,9 +7,9 @@ const DEMO_ADMIN_PASSWORD = 'Saqr@2026';
 
 const state = {
   lang: localStorage.getItem('saqr_lang') || 'ar',
-  role: localStorage.getItem('saqr_role') || 'visitor',
+  role: sessionStorage.getItem('saqr_role') || 'visitor',
   symbol: localStorage.getItem('saqr_symbol') || 'CRM',
-  fav: JSON.parse(localStorage.getItem('saqr_fav') || '["CRM"]')
+  fav: JSON.parse(localStorage.getItem('saqr_fav') || '[]')
 };
 
 const T = {
@@ -68,7 +68,7 @@ function getUsers(){
 function setUsers(u){localStorage.setItem('saqr_users',JSON.stringify(u))}
 function getMessages(){try{return JSON.parse(localStorage.getItem('saqr_messages'))||[]}catch{return []}}
 function setMessages(m){localStorage.setItem('saqr_messages',JSON.stringify(m))}
-function save(){localStorage.setItem('saqr_lang',state.lang);localStorage.setItem('saqr_role',state.role);localStorage.setItem('saqr_symbol',state.symbol);localStorage.setItem('saqr_fav',JSON.stringify(state.fav))}
+function save(){localStorage.setItem('saqr_lang',state.lang);sessionStorage.setItem('saqr_role',state.role);localStorage.setItem('saqr_symbol',state.symbol);localStorage.setItem('saqr_fav',JSON.stringify(state.fav))}
 function go(route){location.hash=route}
 function icon(name){return ({home:'⌂',contracts:'▥',favorites:'★',analyses:'⌁',alerts:'♟',subscription:'♛',login:'→',contact:'✉',admin:'⌂',users:'♙',permissions:'⚙',logout:'↪'})[name]||'•'}
 function isLogged(){return state.role==='member'||state.role==='admin'}
@@ -79,7 +79,7 @@ function header(){
 function sidebar(route){
  let items=[];
  if(state.role==='admin') items=[['home','/'],['contracts','/contracts'],['users','/admin/users'],['permissions','/admin/permissions'],['contact','/admin/contact'],['logout','#/logout']];
- else if(state.role==='member') items=[['home','/'],['contracts','/contracts'],['favorites','/favorites'],['analyses','/analyses'],['alerts','/alerts'],['subscription','/subscription'],['contact','/contact'],['logout','#/logout']];
+ else if(state.role==='member') items=[['home','/'],['contracts','/contracts'],['favorites','/favorites'],['analyses','/analyses'],['alerts','/alerts'],['contact','/contact'],['logout','#/logout']];
  else return '';
  return `<aside class="sidebar">${items.map(([k,r])=>`<a class="nav ${route===r?'active':''}" href="${r.startsWith('#')?r:'#'+r}"><span class="ico">${icon(k)}</span><span>${k==='logout'?t('logout'):t(k)}</span></a>`).join('')}</aside>`
 }
@@ -88,17 +88,25 @@ function layout(content,route,withSidebar=true){
  app.innerHTML=header()+`<div class="shell ${withSidebar?'has-sidebar':''}">${withSidebar?sidebar(route):''}<main class="main">${content}<footer class="footer">SAQR OPTIONS © 2026 — ${t('demo')}</footer></main></div><div class="mobile-panel" id="mobilePanel"></div><div class="toast" id="toast"></div>`;
 }
 function setLang(l){state.lang=l;save();render()}
-function toggleMenu(){const p=document.getElementById('mobilePanel');if(!p)return; p.classList.toggle('open');p.innerHTML=`<div class="mobile-menu-card"><div class="mobile-menu-head"><b>${t('menu')}</b><button class="btn icon" onclick="toggleMenu()">×</button></div><a href="#/">${t('home')}</a>${isLogged()?`<a href="#/contracts">${t('contracts')}</a>`:''}${state.role==='member'?`<a href="#/subscription">${t('subscription')}</a>`:''}${state.role==='admin'?`<a href="#/admin/users">${t('users')}</a><a href="#/admin/permissions">${t('permissions')}</a><a href="#/admin/contact">${t('contactInbox')}</a>`:`<a href="#/contact">${t('contact')}</a>`}<a href="#/logout">${t('logout')}</a></div>`}
+function toggleMenu(){const p=document.getElementById('mobilePanel');if(!p)return; p.classList.toggle('open');p.innerHTML=`<div class="mobile-menu-card"><div class="mobile-menu-head"><b>${t('menu')}</b><button class="btn icon" onclick="toggleMenu()">×</button></div><a href="#/">${t('home')}</a>${isLogged()?`<a href="#/contracts">${t('contracts')}</a>`:''}${state.role==='admin'?`<a href="#/admin/users">${t('users')}</a><a href="#/admin/permissions">${t('permissions')}</a><a href="#/admin/contact">${t('contactInbox')}</a>`:`<a href="#/contact">${t('contact')}</a>`}<a href="#/logout">${t('logout')}</a></div>`}
 
 function publicHome(){
  return `<section class="card hero public-hero"><h1>${t('brand')}</h1><p>${t('training')}</p><div class="pills"><span class="pill">⚡ ${t('live')}</span><span class="pill">🔔 ${t('instant')}</span><span class="pill">📊 ${t('analytics')}</span></div><div class="hero-actions"><button class="btn primary" onclick="go('#/login')">${t('start')}</button><button class="btn gold" onclick="go('#/subscription')">${t('subscribe')}</button></div></section><div class="section-title"><h2>${t('features')}</h2></div><div class="grid cols-3 feature-grid"><div class="card feature"><h2>⚡ ${t('live')}</h2><p>${state.lang==='ar'?'متابعة منظمة لعقود الخيارات والبيانات المتاحة في الواجهة.':'Organized options contract tracking in the interface.'}</p></div><div class="card feature"><h2>🔔 ${t('instant')}</h2><p>${state.lang==='ar'?'تنبيهات واضحة عند تحقق المستويات المحددة.':'Clear alerts when configured levels are reached.'}</p></div><div class="card feature"><h2>📊 ${t('analytics')}</h2><p>${state.lang==='ar'?'عرض تحليلي مرتب لمساعدة المشترك على قراءة بيانات العقد.':'Structured analytics to help subscribers read contract data.'}</p></div></div>`
 }
-function memberHome(){return publicHome()}
+function memberHome(){
+ const favCount=state.fav.length;
+ return `<div class="section-title"><h2>${t('home')}</h2><span class="badge green">${t('live')}</span></div>
+ <div class="admin-grid">${stat(t('total'),'24')} ${stat(t('favorites'),String(favCount))} ${stat(t('alerts'),'3','green')} ${stat(t('analytics'),'8')}</div>
+ <div class="section-title"><h2>${t('results')}</h2></div>
+ <div class="card table-wrap"><table class="table"><thead><tr><th>${t('contracts')}</th><th>${t('entry')}</th><th>${t('current')}</th><th>${t('status')}</th></tr></thead><tbody>
+ ${['CRM','NVDA','AAPL','AMZN'].map(s=>`<tr onclick="selectSymbol('${s}')" style="cursor:pointer"><td>${s}<div class="company">${symbols[s].company}</div></td><td>${symbols[s].entry}</td><td>${symbols[s].current}</td><td class="${symbols[s].type==='CALL'?'call':'put'}">${symbols[s].type}</td></tr>`).join('')}
+ </tbody></table></div>`;
+}
 function stat(label,num,cls=''){return `<div class="card stat"><div class="label">${label}</div><div class="num ${cls}">${num}</div></div>`}
 
 function contractPage(){
  const d=symbols[state.symbol],put=d.type==='PUT';
- return `<div class="ticker">${Object.keys(symbols).map(s=>`<button class="${s===state.symbol?'active':''}" onclick="selectSymbol('${s}')">★ ${s}<small>${symbols[s].company}</small></button>`).join('')}</div><div class="section-title"><h2>${t('contracts')}</h2><span class="badge green">${t('live')}</span></div><div class="grid contract-layout"><section class="card"><div class="option-head"><div><div class="symbol">★ ${state.symbol}</div><div class="company">${d.company}</div><div class="badges"><span class="badge ${put?'red':'green'}">${put?t('put'):t('call')}</span><span class="badge gold">${t('high')}</span><span class="badge">${t('short')}</span></div></div><button class="option-type ${put?'put':''}">${put?'↘':'↗'} ${put?t('put'):t('call')}</button></div><div class="price-grid"><div class="price current"><div>${t('current')}</div><div class="v red">${d.current}</div><div class="red">↘ -0.27 (-10.19%)</div></div><div class="price entry"><div>${t('entry')}</div><div class="v green">${d.entry}</div></div></div><div class="meta-grid"><div class="meta"><span class="small">${t('remaining')}</span><b>2 ${t('days')}</b></div><div class="meta"><span class="small">${t('level')}</span><b>${d.sub}</b></div><div class="meta"><span class="small">${t('expiry')}</span><b>${d.expiry}</b></div></div><div class="chart"><span class="chart-caption">${state.symbol} — ${d.strike}</span><svg viewBox="0 0 900 280" preserveAspectRatio="none"><polyline fill="none" stroke="${put?'#ff3154':'#00ef9b'}" stroke-width="5" points="0,220 70,205 130,214 180,175 230,185 280,140 340,155 400,122 455,145 500,100 560,130 620,110 680,72 735,98 790,60 850,86 900,45"/></svg></div></section><aside class="side-stack"><div class="card targets"><h2>${t('goals')} 🎯</h2>${d.targets.map((x,i)=>`<div class="target"><span>${state.lang==='ar'?'الهدف':'Target'} ${i+1}</span><b>${x[0]}</b><span class="pct">${x[1]}</span></div>`).join('')}</div><div class="card"><h3>⚡ ${t('level')}</h3><div class="big-value">${d.sub}</div></div><div class="card"><h3>⛔ ${t('stop')}</h3><div class="big-value">${put?'$2.95':'$1.20'}</div><div class="red">-51.0%</div></div><div class="card"><h3>📊 ${t('stats')}</h3><div class="meta"><span>${t('volume')}</span><b>12,450</b></div><div class="meta"><span>${t('open')}</span><b>8,230</b></div><div class="meta"><span>${t('iv')}</span><b>32.4%</b></div></div></aside></div><div class="card note-card"><b class="goldtxt">${t('note')}</b><p>${t('disclaimer')}</p></div>`
+ return `<div class="ticker">${Object.keys(symbols).map(s=>`<button class="${s===state.symbol?'active':''}" onclick="selectSymbol('${s}')">${state.fav.includes(s)?'★':'☆'} ${s}<small>${symbols[s].company}</small></button>`).join('')}</div><div class="section-title"><h2>${t('contracts')}</h2><span class="badge green">${t('live')}</span></div><div class="grid contract-layout"><section class="card"><div class="option-head"><div><div class="symbol">★ ${state.symbol}</div><div class="company">${d.company}</div><div class="badges"><span class="badge ${put?'red':'green'}">${put?t('put'):t('call')}</span><span class="badge gold">${t('high')}</span><span class="badge">${t('short')}</span></div></div><button class="option-type ${put?'put':''}">${put?'↘':'↗'} ${put?t('put'):t('call')}</button></div><div class="price-grid"><div class="price current"><div>${t('current')}</div><div class="v red">${d.current}</div><div class="red">↘ -0.27 (-10.19%)</div></div><div class="price entry"><div>${t('entry')}</div><div class="v green">${d.entry}</div></div></div><div class="meta-grid"><div class="meta"><span class="small">${t('remaining')}</span><b>2 ${t('days')}</b></div><div class="meta"><span class="small">${t('level')}</span><b>${d.sub}</b></div><div class="meta"><span class="small">${t('expiry')}</span><b>${d.expiry}</b></div></div><div class="chart"><span class="chart-caption">${state.symbol} — ${d.strike}</span><svg viewBox="0 0 900 280" preserveAspectRatio="none"><polyline fill="none" stroke="${put?'#ff3154':'#00ef9b'}" stroke-width="5" points="0,220 70,205 130,214 180,175 230,185 280,140 340,155 400,122 455,145 500,100 560,130 620,110 680,72 735,98 790,60 850,86 900,45"/></svg></div></section><aside class="side-stack"><div class="card targets"><h2>${t('goals')} 🎯</h2>${d.targets.map((x,i)=>`<div class="target"><span>${state.lang==='ar'?'الهدف':'Target'} ${i+1}</span><b>${x[0]}</b><span class="pct">${x[1]}</span></div>`).join('')}</div><div class="card"><h3>⚡ ${t('level')}</h3><div class="big-value">${d.sub}</div></div><div class="card"><h3>⛔ ${t('stop')}</h3><div class="big-value">${put?'$2.95':'$1.20'}</div><div class="red">-51.0%</div></div><div class="card"><h3>📊 ${t('stats')}</h3><div class="meta"><span>${t('volume')}</span><b>12,450</b></div><div class="meta"><span>${t('open')}</span><b>8,230</b></div><div class="meta"><span>${t('iv')}</span><b>32.4%</b></div></div></aside></div><div class="card note-card"><b class="goldtxt">${t('note')}</b><p>${t('disclaimer')}</p></div>`
 }
 function contracts(){return `<div class="toolbar"><div class="search"><span class="sico">⌕</span><input oninput="filterContracts(this.value)" placeholder="${t('search')}"></div></div><div id="contractContent">${contractPage()}</div>`}
 function filterContracts(q){const box=document.getElementById('contractContent');if(!box)return;const keys=Object.keys(symbols).filter(s=>(s+' '+symbols[s].company).toLowerCase().includes(q.toLowerCase()));if(!keys.length){box.innerHTML=`<div class="card empty"><h2>${t('noData')}</h2></div>`;return}box.innerHTML=contractPage();}
@@ -133,7 +141,7 @@ function render(){
  let path=location.hash.replace(/^#/,'')||'/';
  if(path==='/logout'){logout();return}
  if(path==='/'){layout(state.role==='admin'?admin():state.role==='member'?memberHome():publicHome(),'/');return}
- if(path==='/subscription'){layout(subscription(),path);return}
+ if(path==='/subscription'){if(state.role==='member'||state.role==='admin'){go('#/');return} layout(subscription(),path);return}
  if(path==='/login'){layout(login(),path,false);return}
  if(path==='/contact'){layout(contact(),path,state.role!=='visitor');return}
  if(state.role==='visitor'){layout(publicHome(),'/');return}
@@ -148,3 +156,12 @@ function render(){
  else layout(`<div class="card empty"><h2>404</h2><p>${t('noData')}</p></div>`,'');
 }
 window.addEventListener('hashchange',render);render();
+
+document.addEventListener('contextmenu', e => { if(state.role==='member') e.preventDefault(); });
+document.addEventListener('keydown', e => {
+  if(state.role!=='member') return;
+  if(e.key==='PrintScreen' || (e.ctrlKey && e.key.toLowerCase()==='p') || (e.ctrlKey && e.shiftKey && ['i','j','c'].includes(e.key.toLowerCase()))){
+    e.preventDefault(); document.body.classList.add('capture-block');
+    setTimeout(()=>document.body.classList.remove('capture-block'),1200);
+  }
+});
