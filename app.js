@@ -79,16 +79,16 @@ function header(){
 function sidebar(route){
  let items=[];
  if(state.role==='admin') items=[['home','/'],['contracts','/contracts'],['users','/admin/users'],['permissions','/admin/permissions'],['contact','/admin/contact'],['logout','#/logout']];
- else if(state.role==='member') items=[['home','/'],['contracts','/contracts'],['favorites','/favorites'],['analyses','/analyses'],['alerts','/alerts'],['subscription','/subscription'],['contact','/contact'],['logout','#/logout']];
+ else if(state.role==='member') items=[['home','/'],['contracts','/contracts'],['analyses','/analyses'],['alerts','/alerts'],['contact','/contact'],['logout','#/logout']];
  else return '';
- return `<aside class="sidebar">${items.map(([k,r])=>k==='logout'?`<a class="nav" href="#/" onclick="logout();return false;"><span class="ico">${icon(k)}</span><span>${t('logout')}</span></a>`:`<a class="nav ${route===r?'active':''}" href="${r.startsWith('#')?r:'#'+r}"><span class="ico">${icon(k)}</span><span>${t(k)}</span></a>`).join('')}</aside>`
+ return `<aside class="sidebar">${items.map(([k,r])=>k==='logout'?`<a class="nav" href="#/logout" onclick="logout();return false;"><span class="ico">${icon(k)}</span><span>${t('logout')}</span></a>`:`<a class="nav ${route===r?'active':''}" href="${r.startsWith('#')?r:'#'+r}"><span class="ico">${icon(k)}</span><span>${t(k)}</span></a>`).join('')}</aside>`
 }
 function layout(content,route,withSidebar=true){
  document.documentElement.lang=state.lang;document.documentElement.dir=state.lang==='ar'?'rtl':'ltr';
- app.innerHTML=header()+`<div class="shell ${withSidebar?'has-sidebar':''}">${withSidebar?sidebar(route):''}<main class="main">${content}<footer class="footer">SAQR OPTIONS © 2026 — ${t('demo')}</footer></main></div><div class="mobile-panel" id="mobilePanel"></div><div class="toast" id="toast"></div>`;
+ app.innerHTML=header()+`<div class="shell ${withSidebar?'has-sidebar':''}">${withSidebar?sidebar(route):''}<main class="main">${content}<footer class="footer">SAQR OPTIONS © 2026 — ${t('demo')}${isLogged()&&state.role==='admin'?` <button type="button" class="footer-logout" onclick="logout()">${t('logout')}</button>`:''}</footer></main></div><div class="mobile-panel" id="mobilePanel"></div><div class="toast" id="toast"></div>`;
 }
 function setLang(l){state.lang=l;save();render()}
-function toggleMenu(){const p=document.getElementById('mobilePanel');if(!p)return;const opening=!p.classList.contains('open');p.classList.toggle('open',opening);if(!opening){p.innerHTML='';return}p.innerHTML=`<div class="mobile-menu-card"><div class="mobile-menu-head"><b>${t('menu')}</b><button type="button" class="btn icon" onclick="toggleMenu()">×</button></div><a href="#/" onclick="closeMenu()">${t('home')}</a>${isLogged()?`<a href="#/contracts" onclick="closeMenu()">${t('contracts')}</a>`:''}${state.role==='member'?`<a href="#/subscription" onclick="closeMenu()">${t('subscription')}</a>`:''}${state.role==='admin'?`<a href="#/admin/users" onclick="closeMenu()">${t('users')}</a><a href="#/admin/permissions" onclick="closeMenu()">${t('permissions')}</a><a href="#/admin/contact" onclick="closeMenu()">${t('contactInbox')}</a>`:`<a href="#/contact" onclick="closeMenu()">${t('contact')}</a>`}<a href="#/" onclick="logout();return false;">${t('logout')}</a></div>`}
+function toggleMenu(){const p=document.getElementById('mobilePanel');if(!p)return;const opening=!p.classList.contains('open');p.classList.toggle('open',opening);if(!opening){p.innerHTML='';return}let links=`<a href="#/" onclick="closeMenu();go('#/');return false;">${t('home')}</a>`;if(isLogged())links+=`<a href="#/contracts" onclick="closeMenu()">${t('contracts')}</a>`;if(state.role==='member')links+=`<a href="#/analyses" onclick="closeMenu()">${t('analyses')}</a><a href="#/alerts" onclick="closeMenu()">${t('alerts')}</a><a href="#/contact" onclick="closeMenu()">${t('contact')}</a>`;else if(state.role==='admin')links+=`<a href="#/admin/users" onclick="closeMenu()">${t('users')}</a><a href="#/admin/permissions" onclick="closeMenu()">${t('permissions')}</a><a href="#/admin/contact" onclick="closeMenu()">${t('contactInbox')}</a>`;else links+=`<a href="#/contact" onclick="closeMenu()">${t('contact')}</a>`;p.innerHTML=`<div class="mobile-menu-card"><div class="mobile-menu-head"><b>${t('menu')}</b><button type="button" class="btn icon" onclick="toggleMenu()">×</button></div>${links}<a href="#/logout" onclick="logout();return false;">${t('logout')}</a></div>`}
 function closeMenu(){const p=document.getElementById('mobilePanel');if(p){p.classList.remove('open');p.innerHTML=''}}
 
 function publicHome(){
@@ -132,19 +132,19 @@ function permRows(users,q){return users.filter(u=>u.phone.includes(q||'')).map((
 function renderPermRows(q){const el=document.getElementById('permRows');if(el)el.innerHTML=permRows(getUsers(),q)}
 function adminContact(){const msgs=getMessages();return `<div class="section-title"><h2>${t('contactInbox')}</h2><span class="badge green">${msgs.length}</span></div><div class="messages">${msgs.length?msgs.map(m=>`<div class="card message-card"><div class="message-head"><b>${m.subject}</b><span>${m.date}</span></div><div class="phone-cell">${m.phone}</div><p>${escapeHtml(m.message)}</p></div>`).join(''):`<div class="card empty"><h2>${t('noData')}</h2></div>`}</div>`}
 function escapeHtml(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
-function logout(){closeMenu();state.role='visitor';save();location.hash='/';render();}
+function logout(){closeMenu();state.role='visitor';localStorage.removeItem('saqr_role');location.hash='/';render();}
 function selectSymbol(s){if(!symbols[s])return;state.symbol=s;save();go('#/contracts')}
 
 function render(){
  let path=location.hash.replace(/^#/,'')||'/';
  if(path==='/logout'){logout();return}
  if(path==='/'){layout(state.role==='admin'?admin():state.role==='member'?memberHome():publicHome(),'/');return}
- if(path==='/subscription'){layout(subscription(),path);return}
+ if(path==='/subscription'){if(state.role==='visitor'){layout(subscription(),path,false)}else{go('#/');return}}
  if(path==='/login'){layout(login(),path,false);return}
  if(path==='/contact'){layout(contact(),path,state.role!=='visitor');return}
  if(state.role==='visitor'){layout(publicHome(),'/');return}
  if(path==='/contracts')layout(contracts(),path);
- else if(path==='/favorites')layout(favorites(),path);
+ else if(path==='/favorites'){go('#/');return;}
  else if(path==='/analyses')layout(analyses(),path);
  else if(path==='/alerts')layout(alerts(),path);
  else if(path==='/admin')layout(admin(),path);
