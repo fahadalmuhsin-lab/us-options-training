@@ -93,13 +93,12 @@ html[lang="ar"] body{font-family:"Lina Soft","LinaSoft","لينة سوفت",Taho
 @media(max-width:1050px){.phone-watermarks{grid-template-columns:repeat(6,minmax(0,1fr))}}
 @media(max-width:760px){.phone-watermarks{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-bottom:16px}.phone-watermarks span{font-size:11px}.message-head{align-items:flex-start;flex-direction:column}}
 @media(max-width:430px){.phone-watermarks{grid-template-columns:repeat(3,minmax(0,1fr))}.phone-watermarks span{font-size:10px}}
-.subscriber-watermark{position:fixed;inset:0;z-index:9999;pointer-events:none;overflow:hidden;display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:170px;align-items:center;justify-items:center;transform:rotate(-28deg) scale(1.18);transform-origin:center;color:rgba(210,220,232,.15);font-size:42px;font-weight:800;letter-spacing:2px;white-space:nowrap;user-select:none;text-shadow:0 1px 2px rgba(0,0,0,.15)}
 .btn.small{padding:8px 12px;font-size:12px}.btn.danger{border-color:#7b2940;color:#ff5872}.brand{font-size:30px;font-weight:900;min-width:260px}.brand img{display:none}
 
-/* Subscriber watermark: large diagonal repeated number over the whole website viewport, matching the requested reference */
-.phone-watermarks{position:fixed;inset:-12vh -10vw;z-index:9999;pointer-events:none;user-select:none;overflow:hidden;display:grid;grid-template-columns:repeat(4,minmax(220px,1fr));grid-auto-rows:170px;align-items:center;justify-items:center;transform:rotate(-28deg) scale(1.12);transform-origin:center;color:rgba(210,220,232,.15);font-size:42px;font-weight:800;letter-spacing:1px;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.12)}
-.phone-watermarks span{display:block;opacity:.95}
-.btn.small{padding:8px 12px;font-size:12px}.btn.danger{border-color:#7b2940;color:#ff5872}
-@media(max-width:1050px){.phone-watermarks{grid-template-columns:repeat(3,minmax(210px,1fr));grid-auto-rows:150px;font-size:38px}}
-@media(max-width:760px){.phone-watermarks{grid-template-columns:repeat(2,minmax(190px,1fr));grid-auto-rows:125px;font-size:30px}}
-@media(max-width:430px){.phone-watermarks{grid-template-columns:repeat(2,minmax(150px,1fr));font-size:25px}}
+/* Final subscriber watermark: compact, light, repeated over the page content without affecting layout */
+.phone-watermarks{position:fixed;inset:92px -4vw -8vh;z-index:20;pointer-events:none;user-select:none;overflow:hidden;display:grid;grid-template-columns:repeat(5,minmax(170px,1fr));grid-auto-rows:135px;align-items:center;justify-items:center;transform:rotate(-25deg) scale(1.08);transform-origin:center;color:rgba(210,220,232,.065);font-size:30px;font-weight:700;letter-spacing:1px;white-space:nowrap;text-shadow:none}
+.phone-watermarks span{display:block;opacity:1}
+.main>*:not(.phone-watermarks),.main>.phone-watermarks~*{position:relative;z-index:3}
+@media(max-width:1050px){.phone-watermarks{grid-template-columns:repeat(4,minmax(160px,1fr));grid-auto-rows:125px;font-size:27px}}
+@media(max-width:760px){.phone-watermarks{inset:76px -8vw -6vh;grid-template-columns:repeat(3,minmax(135px,1fr));grid-auto-rows:105px;font-size:23px}}
+@media(max-width:430px){.phone-watermarks{grid-template-columns:repeat(3,minmax(105px,1fr));grid-auto-rows:90px;font-size:18px}}
