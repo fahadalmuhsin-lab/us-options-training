@@ -7,9 +7,9 @@ const DEMO_ADMIN_PASSWORD = 'Saqr@2026';
 
 const state = {
   lang: localStorage.getItem('saqr_lang') || 'ar',
-  role: localStorage.getItem('saqr_role') || 'visitor',
+  role: sessionStorage.getItem('saqr_role') || 'visitor',
   symbol: localStorage.getItem('saqr_symbol') || 'CRM',
-  fav: JSON.parse(localStorage.getItem('saqr_fav') || '["CRM"]')
+  fav: JSON.parse(localStorage.getItem('saqr_fav') || '[]')
 };
 
 const T = {
@@ -68,7 +68,7 @@ function getUsers(){
 function setUsers(u){localStorage.setItem('saqr_users',JSON.stringify(u))}
 function getMessages(){try{return JSON.parse(localStorage.getItem('saqr_messages'))||[]}catch{return []}}
 function setMessages(m){localStorage.setItem('saqr_messages',JSON.stringify(m))}
-function save(){localStorage.setItem('saqr_lang',state.lang);localStorage.setItem('saqr_role',state.role);localStorage.setItem('saqr_symbol',state.symbol);localStorage.setItem('saqr_fav',JSON.stringify(state.fav))}
+function save(){localStorage.setItem('saqr_lang',state.lang);sessionStorage.setItem('saqr_role',state.role);localStorage.setItem('saqr_symbol',state.symbol);localStorage.setItem('saqr_fav',JSON.stringify(state.fav))}
 function go(route){location.hash=route}
 function icon(name){return ({home:'⌂',contracts:'▥',analyses:'⌁',alerts:'♟',subscription:'♛',login:'→',contact:'✉',admin:'⌂',users:'♙',permissions:'⚙',logout:'↪'})[name]||'•'}
 function isLogged(){return state.role==='member'||state.role==='admin'}
