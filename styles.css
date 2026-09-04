@@ -42,3 +42,48 @@
 .stat-link{cursor:pointer;transition:.2s}.stat-link:hover{border-color:var(--blue);transform:translateY(-2px)}
 .alert-card{cursor:pointer;transition:.2s}.alert-card:hover{border-color:var(--blue);transform:translateY(-2px)}
 .admin-alert-tabs{max-width:360px;margin-bottom:20px}
+
+.footer{display:flex;flex-direction:column;gap:14px;margin-top:30px;padding-top:20px;border-top:1px solid var(--line)}
+.disclaimer-note{font-size:12px;line-height:1.9;color:var(--muted);background:#071324;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.disclaimer-note b{margin-inline-end:6px}
+.footer-bottom{font-size:12px;color:var(--muted);text-align:center}
+
+.banned-screen{max-width:480px;margin:60px auto;text-align:center;padding:44px 30px}
+.banned-icon{font-size:54px;margin-bottom:14px}
+.banned-screen h1{color:var(--red);font-size:24px;margin:0 0 12px}
+.banned-screen p{color:var(--muted);line-height:1.9;margin:0 0 24px}
+
+.modal-alert{text-align:center;padding:6px}
+.modal-alert-icon{font-size:44px;margin-bottom:10px}
+.modal-alert h2{margin:0 0 10px}
+.modal-alert.success h2{color:var(--green)}
+.modal-alert p{color:var(--muted);margin-bottom:18px}
+
+.pay-methods{display:flex;gap:10px;margin-top:10px}
+.pay-method{flex:1;padding:16px 10px;border-radius:14px;border:1px solid var(--line);background:#061221;color:var(--text);cursor:pointer;font-size:14px;font-weight:700}
+.pay-method.active{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue) inset}
+.apple-pay-btn{margin-top:14px;background:#000;color:#fff;text-align:center;padding:14px;border-radius:12px;font-weight:800}
+.checkout-card{max-width:460px;margin:0 auto}
+.strike{text-decoration:line-through;color:var(--muted);font-size:13px}
+
+.calc-card{padding:16px}
+.calc-header{display:grid;grid-template-columns:1fr 1fr 90px 34px;gap:8px;font-size:12px;color:var(--muted);padding:0 4px 8px}
+.calc-row{display:grid;grid-template-columns:1fr 1fr 90px 34px;gap:8px;margin-bottom:8px;align-items:center}
+.calc-row input{padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:#061221;color:var(--text)}
+.calc-net{text-align:center;font-weight:800;padding:10px 4px;border-radius:10px;background:#061221}
+.calc-net.green{color:var(--green)}.calc-net.red{color:var(--red)}
+.calc-net-card.pos{border-color:#0a805f}.calc-net-card.neg{border-color:#7b2940}
+.calc-tip{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.7}
+
+.rating-banner{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;border-color:var(--gold);color:var(--gold);font-weight:700;text-decoration:none}
+.discount-banner{margin-bottom:14px;border-color:var(--gold);background:#1a1305;color:#ffe9a8;line-height:1.9}
+
+.stars-row{display:flex;gap:6px;font-size:26px}
+.star-pick{cursor:pointer;color:#33455c}
+.star-pick.on{color:var(--gold)}
+
+.review-card .review-title{font-weight:800;font-size:15px;margin-bottom:8px}
+
+.renew-price{text-align:center;font-size:20px;margin:14px 0}
+
+@media(max-width:760px){.calc-header,.calc-row{grid-template-columns:1fr 1fr 70px 28px}.pay-methods{flex-direction:column}}

@@ -7,11 +7,11 @@ const DEMO_ADMIN_PASSWORD = 'Saqr@2026';
 const RESET_DEMO_CODE = '1997';
 const RESET_DEMO_PHONE = '0582477779';
 const RESET_DEMO_EMAIL = 'fahad.alroile@gmail.com';
-let memberPasswordOverride = localStorage.getItem('saqr_member_pw') || null;
 
 const state = {
   lang: localStorage.getItem('saqr_lang') || 'ar',
   role: localStorage.getItem('saqr_role') || 'visitor',
+  currentPhone: localStorage.getItem('saqr_current_phone') || '',
   symbol: localStorage.getItem('saqr_symbol') || 'CRM',
   fav: JSON.parse(localStorage.getItem('saqr_fav') || '["CRM"]')
 };
@@ -23,7 +23,7 @@ const T = {
   ar:{
     brand:'صقر أوبشن', home:'الرئيسية', contracts:'العقود', favorites:'المفضلة', analyses:'التحليلات',
     alerts:'الإشعارات', subscription:'الاشتراكات', login:'تسجيل الدخول', contact:'تواصل معنا', logout:'تسجيل الخروج',
-    admin:'لوحة التحكم', users:'إدارة المستخدمين', permissions:'المهام والصلاحيات', search:'ابحث عن شركة أو رمز...',
+    admin:'لوحة التحكم', users:'إدارة المستخدمين', permissions:'المهام والصلاحيات', supervisors:'المشرفون', search:'ابحث عن شركة أو رمز...',
     subscribe:'اشترك الآن', start:'تسجيل الدخول', live:'بيانات لحظية', auto:'تحديث آلي', instant:'إشعارات فورية',
     analytics:'تحليلات', training:'منصة متخصصة في تدريب ومتابعة عقود الخيارات الأمريكية، بواجهة منظمة وتحليلات واضحة وتنبيهات فورية عند اقتراب مستويات الدخول والأهداف ووقف الخسارة.',
     features:'مميزات المنصة', results:'نتائج التدريب', total:'إجمالي عقود التدريب', entryTotal:'إجمالي أسعار الدخول', loss:'إجمالي الخسائر', net:'صافي الربح',
@@ -47,7 +47,7 @@ const T = {
     loginError:'بيانات الدخول غير صحيحة', roleRequired:'اختر نوع الحساب',
   },
   en:{
-    brand:'Saqr Options', home:'Home', contracts:'Contracts', favorites:'Favorites', analyses:'Analytics', alerts:'Alerts', subscription:'Subscriptions', login:'Log in', contact:'Contact us', logout:'Log out', admin:'Dashboard', users:'User management', permissions:'Tasks & permissions', search:'Search for a company or symbol...', subscribe:'Subscribe now', start:'Log in', live:'Live data', auto:'Auto update', instant:'Instant alerts', analytics:'Analytics', training:'A specialized platform for training and tracking U.S. options contracts with organized views, clear analytics, and instant alerts.', features:'Platform features', results:'Training results', total:'Total contracts', entryTotal:'Total entry prices', loss:'Total losses', net:'Net profit', goals:'Targets', level:'Strike level', stop:'Stop loss', stats:'Contract statistics', volume:'Trading volume', open:'Open contracts', iv:'IV volatility', current:'Current contract price', entry:'Entry price', expiry:'Expiry date', remaining:'Time remaining', days:'days', call:'CALL', put:'PUT', high:'High Confidence', short:'Short Term', note:'Important note', disclaimer:'This is not financial advice. All decisions are your personal responsibility. Options trading involves high risk.', welcome:'Log in', phone:'Mobile number', password:'Password', enter:'Log in', member:'Subscriber', adminRole:'Admin', memberOnly:'Use the subscriber mobile number and password.', adminOnly:'Use the admin username and password.', forgot:'Forgot password?', payments:'Paid subscriptions', banned:'Banned subscribers', expiring:'Expiring subscribers', subscribers:'Active subscribers', settings:'Settings', noData:'No data to display', allUsers:'All users', assign:'Assign supervisor', ban:'Ban', unban:'Unban', banReason:'Ban reason', save:'Save', cancel:'Cancel', supervisor:'Supervisor', active:'Active', expired:'Expired', pending:'No subscription', plan:'Plan', status:'Status', mobile:'Mobile number', expires:'Expires', loginDate:'Login date', action:'Action', contactInbox:'Contact messages', subject:'Subject', message:'Message', send:'Send', received:'Inbox', proof:'Attach proof', screenshot:'Screen capture', supervisorInfo:'Supervisors can only ban subscribers flagged for screen capture and must attach proof. Financial and subscriber totals are hidden.', extend:'Extend subscription', noSubscription:'No subscription', extendPrompt:'Enter extension days', close:'Close', menu:'Menu', oneMonth:'1 month', threeMonths:'3 months', sixMonths:'6 months', sar:'SAR', sameFeatures:'Live data • Instant alerts • Analytics', demo:'Demo build', adminMessages:'Messages received from visitors and subscribers', permissionTitle:'Tasks & permissions', permissionSearch:'Search by mobile', flagged:'Screen-capture flagged', noProof:'No proof attached', assigned:'Supervisor assigned', bannedSuccess:'Subscriber banned', logoutDone:'Logged out', loginError:'Invalid login details', roleRequired:'Choose account type'
+    brand:'Saqr Options', home:'Home', contracts:'Contracts', favorites:'Favorites', analyses:'Analytics', alerts:'Alerts', subscription:'Subscriptions', login:'Log in', contact:'Contact us', logout:'Log out', admin:'Dashboard', users:'User management', permissions:'Tasks & permissions', supervisors:'Supervisors', search:'Search for a company or symbol...', subscribe:'Subscribe now', start:'Log in', live:'Live data', auto:'Auto update', instant:'Instant alerts', analytics:'Analytics', training:'A specialized platform for training and tracking U.S. options contracts with organized views, clear analytics, and instant alerts.', features:'Platform features', results:'Training results', total:'Total contracts', entryTotal:'Total entry prices', loss:'Total losses', net:'Net profit', goals:'Targets', level:'Strike level', stop:'Stop loss', stats:'Contract statistics', volume:'Trading volume', open:'Open contracts', iv:'IV volatility', current:'Current contract price', entry:'Entry price', expiry:'Expiry date', remaining:'Time remaining', days:'days', call:'CALL', put:'PUT', high:'High Confidence', short:'Short Term', note:'Important note', disclaimer:'This is not financial advice. All decisions are your personal responsibility. Options trading involves high risk.', welcome:'Log in', phone:'Mobile number', password:'Password', enter:'Log in', member:'Subscriber', adminRole:'Admin', memberOnly:'Use the subscriber mobile number and password.', adminOnly:'Use the admin username and password.', forgot:'Forgot password?', payments:'Paid subscriptions', banned:'Banned subscribers', expiring:'Expiring subscribers', subscribers:'Active subscribers', settings:'Settings', noData:'No data to display', allUsers:'All users', assign:'Assign supervisor', ban:'Ban', unban:'Unban', banReason:'Ban reason', save:'Save', cancel:'Cancel', supervisor:'Supervisor', active:'Active', expired:'Expired', pending:'No subscription', plan:'Plan', status:'Status', mobile:'Mobile number', expires:'Expires', loginDate:'Login date', action:'Action', contactInbox:'Contact messages', subject:'Subject', message:'Message', send:'Send', received:'Inbox', proof:'Attach proof', screenshot:'Screen capture', supervisorInfo:'Supervisors can only ban subscribers flagged for screen capture and must attach proof. Financial and subscriber totals are hidden.', extend:'Extend subscription', noSubscription:'No subscription', extendPrompt:'Enter extension days', close:'Close', menu:'Menu', oneMonth:'1 month', threeMonths:'3 months', sixMonths:'6 months', sar:'SAR', sameFeatures:'Live data • Instant alerts • Analytics', demo:'Demo build', adminMessages:'Messages received from visitors and subscribers', permissionTitle:'Tasks & permissions', permissionSearch:'Search by mobile', flagged:'Screen-capture flagged', noProof:'No proof attached', assigned:'Supervisor assigned', bannedSuccess:'Subscriber banned', logoutDone:'Logged out', loginError:'Invalid login details', roleRequired:'Choose account type'
   }
 };
 const t = k => T[state.lang][k] || k;
@@ -63,19 +63,40 @@ const symbols = {
  GOOGL:{company:'Alphabet Inc.',type:'CALL',current:'$1.44',entry:'$1.56',strike:'$190.20',expiry:'Jul 03, 2026',sub:'$200',targets:[['$1.95','+35.4%'],['$2.50','+73.6%'],['$3.20','+122.2%']]}
 };
 
+function plusDays(n){const d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)}
 function getUsers(){
   const fallback=[
-    {phone:DEMO_MEMBER_PHONE,plan:'6 شهور',status:'active',start:'2026-03-12',expires:'2026-09-12',supervisor:false,banned:false,reason:'',flagged:true},
-    {phone:'0501234567',plan:'3 شهور',status:'active',start:'2026-06-04',expires:'2026-09-04',supervisor:false,banned:false,reason:'',flagged:false},
-    {phone:'0559876543',plan:'شهر',status:'active',start:'2026-08-18',expires:'2026-09-18',supervisor:false,banned:false,reason:'',flagged:true},
-    {phone:'0532221110',plan:'بدون اشتراك',status:'none',start:'—',expires:'—',supervisor:false,banned:false,reason:'',flagged:false}
+    {phone:DEMO_MEMBER_PHONE,password:DEMO_MEMBER_PASSWORD,plan:'6 شهور',status:'active',start:'2026-03-12',expires:'2026-09-12',supervisor:false,banned:false,reason:'',flagged:true,discountCode:'',ratingPromptSent:false},
+    {phone:'0501234567',password:'Demo!2026',plan:'3 شهور',status:'active',start:'2026-06-04',expires:'2026-09-04',supervisor:false,banned:false,reason:'',flagged:false,discountCode:'',ratingPromptSent:false},
+    {phone:'0559876543',password:'Demo!2026',plan:'شهر',status:'active',start:'2026-08-18',expires:'2026-09-18',supervisor:false,banned:false,reason:'',flagged:true,discountCode:'',ratingPromptSent:false},
+    {phone:'0532221110',password:'Demo!2026',plan:'بدون اشتراك',status:'none',start:'—',expires:'—',supervisor:false,banned:false,reason:'',flagged:false,discountCode:'',ratingPromptSent:false},
+    {phone:'058247777',password:'Fahwd!@!707',plan:'شهر',status:'active',start:plusDays(0),expires:plusDays(30),supervisor:false,banned:false,reason:'',flagged:false,discountCode:'',ratingPromptSent:false},
+    {phone:'0583477779',password:'Fahwd!@!707',plan:'شهر',status:'active',start:plusDays(0),expires:plusDays(30),supervisor:false,banned:false,reason:'',flagged:false,discountCode:'',ratingPromptSent:false}
   ];
   try{return JSON.parse(localStorage.getItem('saqr_users'))||fallback}catch{return fallback}
 }
 function setUsers(u){localStorage.setItem('saqr_users',JSON.stringify(u))}
 function getMessages(){try{return JSON.parse(localStorage.getItem('saqr_messages'))||[]}catch{return []}}
 function setMessages(m){localStorage.setItem('saqr_messages',JSON.stringify(m))}
-function save(){localStorage.setItem('saqr_lang',state.lang);localStorage.setItem('saqr_role',state.role);localStorage.setItem('saqr_symbol',state.symbol);localStorage.setItem('saqr_fav',JSON.stringify(state.fav))}
+function getBanRequests(){try{return JSON.parse(localStorage.getItem('saqr_ban_requests'))||[]}catch{return []}}
+function setBanRequests(r){localStorage.setItem('saqr_ban_requests',JSON.stringify(r))}
+function getActivity(){try{return JSON.parse(localStorage.getItem('saqr_activity'))||[]}catch{return []}}
+function setActivity(a){localStorage.setItem('saqr_activity',JSON.stringify(a.slice(0,60)))}
+function logActivity(text){const a=getActivity();a.unshift({id:Date.now().toString()+Math.random().toString(36).slice(2,6),text,date:new Date().toLocaleString('ar-SA'),seen:false});setActivity(a)}
+function getReviews(){try{return JSON.parse(localStorage.getItem('saqr_reviews'))||[]}catch{return []}}
+function setReviews(r){localStorage.setItem('saqr_reviews',JSON.stringify(r))}
+function getDiscountCodes(){try{return JSON.parse(localStorage.getItem('saqr_codes'))||{}}catch{return {}}}
+function setDiscountCodes(c){localStorage.setItem('saqr_codes',JSON.stringify(c))}
+function findDiscountCode(code){
+ code=(code||'').trim().toUpperCase();
+ if(!code)return null;
+ if(code==='F77')return {code:'F77',percent:30,free:false};
+ if(code==='GIKT2I1997')return {code:'GikT2i1997',percent:100,free:true};
+ const custom=getDiscountCodes();
+ if(custom[code])return {code,percent:custom[code].percent||0,free:false};
+ return null;
+}
+function save(){localStorage.setItem('saqr_lang',state.lang);localStorage.setItem('saqr_role',state.role);localStorage.setItem('saqr_current_phone',state.currentPhone||'');localStorage.setItem('saqr_symbol',state.symbol);localStorage.setItem('saqr_fav',JSON.stringify(state.fav))}
 function go(route){location.hash=route}
 let toastTimer=null;
 function toast(msg){
@@ -86,7 +107,7 @@ function toast(msg){
  clearTimeout(toastTimer);
  toastTimer=setTimeout(()=>{el.style.display='none'},3200);
 }
-function icon(name){return ({home:'⌂',contracts:'▥',favorites:'★',analyses:'⌁',alerts:'♟',subscription:'♛',login:'→',contact:'✉',admin:'⌂',users:'♙',permissions:'⚙',logout:'↪'})[name]||'•'}
+function icon(name){return ({home:'⌂',contracts:'▥',favorites:'★',analyses:'⌁',alerts:'♟',subscription:'♛',login:'→',contact:'✉',admin:'⌂',users:'♙',permissions:'⚙',supervisors:'♞',logout:'↪'})[name]||'•'}
 function updateWatermark(){
  let el=document.getElementById('watermarkLayer');
  if(!el){el=document.createElement('div');el.id='watermarkLayer';el.className='watermark-layer';document.body.appendChild(el)}
@@ -103,6 +124,9 @@ function updateWatermark(){
  el.innerHTML=html;el.style.display='block';
 }
 function isLogged(){return state.role==='member'||state.role==='admin'}
+function currentUserRecord(){return getUsers().find(u=>u.phone===state.currentPhone)}
+function isSupervisor(){const u=currentUserRecord();return state.role==='member'&&!!u&&u.supervisor&&!u.banned}
+function isBannedNow(){const u=currentUserRecord();return state.role==='member'&&!!u&&u.banned}
 function dirColor(type){return type==='PUT'?'var(--red)':type==='CALL'?'var(--green)':'var(--gold)'}
 
 function header(){
@@ -112,21 +136,24 @@ function header(){
    <div class="lang"><button class="${state.lang==='en'?'active':''}" onclick="setLang('en')">EN</button><button class="${state.lang==='ar'?'active':''}" onclick="setLang('ar')">ع</button></div>
   </div>
   <div class="topbar-search"><span class="sico">⌕</span><input placeholder="${t('search')}" onkeydown="headerSearchKey(event,this.value)"></div>
-  <a class="topbar-brand" href="#/"><img class="brand-mark-img" src="falcon-icon.png" alt="Saqr Options"><span class="brand-text-group"><span class="brand-sub">SAQR OPTIONS</span></span></a>
+  <a class="topbar-brand" href="#/"><img class="brand-mark-img" src="brand-icon.png" alt="Saqr Option"></a>
   <div class="topbar-end">
    ${isLogged()?`<button class="btn icon notif-btn" aria-label="alerts" onclick="goAlerts()">🔔<span class="notif-badge ${badge?'':'zero'}">${badge}</span></button>`:''}
    <button class="menu-btn" aria-label="${t('menu')}" onclick="toggleMenu()"><i></i><i></i><i></i></button>
   </div>
  </header>`
 }
-function alertBadgeCount(){if(state.role==='admin')return getMessages().length;return isLogged()?3:0}
+function alertBadgeCount(){if(state.role==='admin')return getMessages().length+getBanRequests().filter(r=>r.status==='pending').length;return isLogged()?3:0}
 function goAlerts(){if(isLogged()){go('#/alerts')}else{toast(t('loginError'));go('#/login')}}
 function headerSearchKey(e,v){if(e.key!=='Enter')return;if(!isLogged()){toast(t('loginError'));go('#/login');return}headerQuery=v.trim();go('#/contracts');render()}
 function sidebar(route){
  let items=[],accountItems=[];
  if(state.role==='admin'){
-  items=[['home','/'],['contracts','/contracts'],['users','/admin/users'],['permissions','/admin/permissions']];
+  items=[['home','/'],['contracts','/contracts'],['users','/admin/users'],['permissions','/admin/permissions'],['supervisors','/admin/supervisors']];
   accountItems=[['contact','/admin/contact'],['logout','#/logout']];
+ }else if(state.role==='member'&&isSupervisor()){
+  items=[['home','/']];
+  accountItems=[['contact','/contact'],['logout','#/logout']];
  }else if(state.role==='member'){
   items=[['home','/'],['contracts','/contracts'],['favorites','/favorites'],['alerts','/alerts']];
   accountItems=[['contact','/contact'],['logout','#/logout']];
@@ -139,11 +166,11 @@ function sidebar(route){
 }
 function layout(content,route,withSidebar=true){
  document.documentElement.lang=state.lang;document.documentElement.dir=state.lang==='ar'?'rtl':'ltr';
- app.innerHTML=header()+`<div class="shell ${withSidebar?'has-sidebar':''}">${withSidebar?sidebar(route):''}<main class="main">${content}<footer class="footer">SAQR OPTIONS © 2026 — ${t('demo')}${isLogged()&&state.role==='admin'?` <button type="button" class="footer-logout" onclick="logout()">${t('logout')}</button>`:''}</footer></main></div><div class="mobile-panel" id="mobilePanel"></div><div class="modal-overlay" id="modalRoot"></div><div class="toast" id="toast"></div>`;
+ app.innerHTML=header()+`<div class="shell ${withSidebar?'has-sidebar':''}">${withSidebar?sidebar(route):''}<main class="main">${content}<footer class="footer"><div class="disclaimer-note"><b class="goldtxt">${state.lang==='ar'?'للتنويه :':'Note:'}</b> <span>${state.lang==='ar'?'منصة صقر أوبشن منصة تدريبية وتعليمية تهدف إلى تطوير مهارات فهم وتحليل عقود الخيارات، ولا تُعد توصيات مالية أو استثمارية. جميع الأمثلة والبيانات المعروضة لأغراض التدريب والتعلّم فقط، وأي قرار تداول أو استثمار تتخذه هو مسؤوليتك الشخصية.':'Saqr Option is a training and educational platform aimed at developing skills to understand and analyze options contracts, and is not financial or investment advice. All examples and data shown are for training and learning purposes only, and any trading or investment decision you make is your own responsibility.'}</span></div><div class="footer-bottom">SAQR OPTION © 2026 — ${t('demo')}${isLogged()&&state.role==='admin'?` <button type="button" class="footer-logout" onclick="logout()">${t('logout')}</button>`:''}</div></footer></main></div><div class="mobile-panel" id="mobilePanel"></div><div class="modal-overlay" id="modalRoot"></div><div class="toast" id="toast"></div>`;
  updateWatermark();
 }
 function setLang(l){state.lang=l;save();render()}
-function toggleMenu(){const p=document.getElementById('mobilePanel');if(!p)return;const opening=!p.classList.contains('open');p.classList.toggle('open',opening);if(!opening){p.innerHTML='';return}let links=`<a href="#/" onclick="closeMenu();go('#/');return false;">${t('home')}</a>`;if(isLogged())links+=`<a href="#/contracts" onclick="closeMenu()">${t('contracts')}</a>`;if(state.role==='member')links+=`<a href="#/favorites" onclick="closeMenu()">${t('favorites')}</a><a href="#/alerts" onclick="closeMenu()">${t('alerts')}</a><a href="#/contact" onclick="closeMenu()">${t('contact')}</a>`;else if(state.role==='admin')links+=`<a href="#/admin/users" onclick="closeMenu()">${t('users')}</a><a href="#/admin/permissions" onclick="closeMenu()">${t('permissions')}</a><a href="#/admin/contact" onclick="closeMenu()">${t('contactInbox')}</a>`;else links+=`<a href="#/subscription" onclick="closeMenu()">${t('subscription')}</a><a href="#/contact" onclick="closeMenu()">${t('contact')}</a>`;p.innerHTML=`<div class="mobile-menu-card"><div class="mobile-menu-head"><b>${t('menu')}</b><button type="button" class="btn icon" onclick="toggleMenu()">×</button></div>${links}${isLogged()?`<a href="#/logout" onclick="logout();return false;">${t('logout')}</a>`:''}</div>`}
+function toggleMenu(){const p=document.getElementById('mobilePanel');if(!p)return;const opening=!p.classList.contains('open');p.classList.toggle('open',opening);if(!opening){p.innerHTML='';return}let links=`<a href="#/" onclick="closeMenu();go('#/');return false;">${t('home')}</a>`;if(state.role==='member'&&isSupervisor()){links+=`<a href="#/contact" onclick="closeMenu()">${t('contact')}</a>`}else{if(isLogged())links+=`<a href="#/contracts" onclick="closeMenu()">${t('contracts')}</a>`;if(state.role==='member')links+=`<a href="#/favorites" onclick="closeMenu()">${t('favorites')}</a><a href="#/alerts" onclick="closeMenu()">${t('alerts')}</a><a href="#/contact" onclick="closeMenu()">${t('contact')}</a>`;else if(state.role==='admin')links+=`<a href="#/admin/users" onclick="closeMenu()">${t('users')}</a><a href="#/admin/permissions" onclick="closeMenu()">${t('permissions')}</a><a href="#/admin/supervisors" onclick="closeMenu()">${t('supervisors')}</a><a href="#/admin/contact" onclick="closeMenu()">${t('contactInbox')}</a>`;else links+=`<a href="#/subscription" onclick="closeMenu()">${t('subscription')}</a><a href="#/contact" onclick="closeMenu()">${t('contact')}</a>`;}p.innerHTML=`<div class="mobile-menu-card"><div class="mobile-menu-head"><b>${t('menu')}</b><button type="button" class="btn icon" onclick="toggleMenu()">×</button></div>${links}${isLogged()?`<a href="#/logout" onclick="logout();return false;">${t('logout')}</a>`:''}</div>`}
 function closeMenu(){const p=document.getElementById('mobilePanel');if(p){p.classList.remove('open');p.innerHTML=''}}
 
 function openModal(html){const m=document.getElementById('modalRoot');if(!m)return;m.innerHTML=`<div class="modal-card">${html}</div>`;m.classList.add('open')}
@@ -188,43 +215,194 @@ function updatePwChecklist(){
 }
 function submitNewPassword(){
  const p=document.getElementById('newPw')?.value||'';
- memberPasswordOverride=p;localStorage.setItem('saqr_member_pw',p);
+ const users=getUsers();const u=users.find(x=>x.phone===RESET_DEMO_PHONE);
+ if(u){u.password=p;setUsers(users)}
  toast(state.lang==='ar'?'تم تغيير كلمة المرور بنجاح ✓':'Password changed successfully ✓');
  closeModalUI();loginMode='member';render();
 }
 
 function publicHome(){
- return `<section class="card hero public-hero"><img class="hero-falcon" src="falcon-logo.png" alt=""><div class="hero-copy"><h1>${t('brand')}</h1><p>${t('training')}</p><div class="pills"><span class="pill">⚡ ${t('live')}</span><span class="pill">🔔 ${t('instant')}</span><span class="pill">📊 ${t('analytics')}</span></div><div class="hero-actions"><button class="btn primary" onclick="go('#/login')">${t('start')}</button><button class="btn gold" onclick="go('#/subscription')">${t('subscribe')}</button></div></div></section><div class="section-title"><h2>${t('features')}</h2></div><div class="grid cols-3 feature-grid"><div class="card feature"><h2>⚡ ${t('live')}</h2><p>${state.lang==='ar'?'متابعة منظمة لعقود الخيارات والبيانات المتاحة في الواجهة.':'Organized options contract tracking in the interface.'}</p></div><div class="card feature"><h2>🔔 ${t('instant')}</h2><p>${state.lang==='ar'?'تنبيهات واضحة عند تحقق المستويات المحددة.':'Clear alerts when configured levels are reached.'}</p></div><div class="card feature"><h2>📊 ${t('analytics')}</h2><p>${state.lang==='ar'?'عرض تحليلي مرتب لمساعدة المشترك على قراءة بيانات العقد.':'Structured analytics to help subscribers read contract data.'}</p></div></div>`
+ return `<section class="card hero public-hero"><img class="hero-falcon" src="brand-logo-full.png" alt="Saqr Option"><div class="hero-copy"><p>${t('training')}</p><div class="pills"><span class="pill">⚡ ${t('live')}</span><span class="pill">🔔 ${t('instant')}</span><span class="pill">📊 ${t('analytics')}</span></div><div class="hero-actions"><button class="btn primary" onclick="go('#/login')">${t('start')}</button><button class="btn gold" onclick="go('#/subscription')">${t('subscribe')}</button></div></div></section><div class="section-title"><h2>${t('features')}</h2></div><div class="grid cols-3 feature-grid"><div class="card feature"><h2>⚡ ${t('live')}</h2><p>${state.lang==='ar'?'متابعة منظمة لعقود الخيارات والبيانات المتاحة في الواجهة.':'Organized options contract tracking in the interface.'}</p></div><div class="card feature"><h2>🔔 ${t('instant')}</h2><p>${state.lang==='ar'?'تنبيهات واضحة عند تحقق المستويات المحددة.':'Clear alerts when configured levels are reached.'}</p></div><div class="card feature"><h2>📊 ${t('analytics')}</h2><p>${state.lang==='ar'?'عرض تحليلي مرتب لمساعدة المشترك على قراءة بيانات العقد.':'Structured analytics to help subscribers read contract data.'}</p></div></div>${publicReviewsSection()}`
 }
 function memberHome(){
- const u=getUsers().find(x=>x.phone===DEMO_MEMBER_PHONE)||{plan:t('pending'),status:'none',expires:'—'};
+ const u=currentUserRecord()||{plan:t('pending'),status:'none',expires:'—'};
  const isActive=!u.banned&&u.status==='active';
  const status=u.banned?t('banned'):isActive?t('active'):t('pending');
  const statusClass=u.banned?'red':isActive?'green':'goldtxt';
  const left=daysLeft(u.expires);
  const total=u.plan===t('oneMonth')?30:u.plan===t('threeMonths')?90:u.plan===t('sixMonths')?180:0;
  const pct=total&&isActive?Math.max(0,Math.min(100,Math.round((left/total)*100))):0;
+ const ratingBanner=shouldPromptRating(u)?`<a class="card rating-banner" href="#/ratings"><span>⭐ ${state.lang==='ar'?'نسعد بتقييم الخدمة المقدمة إليكم':'We would love your feedback'}</span><span>›</span></a>`:'';
+ const discountBanner=u.discountCode?`<div class="card discount-banner"><b>🎁 ${state.lang==='ar'?`عزيزي أشتراكك قارب على النهاية ونسعد بتجديد الاشتراك عبر كود الخصم (${u.discountCode}) ونسعد بتجديد ثقتكم لدينا.`:`Dear subscriber, your plan is about to end — renew with discount code (${u.discountCode}).`}</b></div>`:'';
  return `<div class="section-title"><h2>${t('home')}</h2><span class="badge green">${t('member')}</span></div>
+ ${ratingBanner}${discountBanner}
  <div class="card sub-status-card">
   <div class="sub-status-head">
    <div class="sub-status-badge ${statusClass}">${isActive?'✓':u.banned?'⛔':'•'}</div>
    <div><div class="sub-status-title">${status}</div><div class="sub-status-sub">${u.plan}</div></div>
   </div>
   ${isActive?`<div class="sub-progress"><div class="sub-progress-bar" style="width:${pct}%"></div></div><div class="sub-progress-label">${left>0?`${left} ${t('days')} — ${t('expires')} ${u.expires}`:t('expired')}</div>`:`<p class="sub-empty-note">${u.banned?'':t('noSubscription')}</p>`}
-  <div class="sub-status-actions">${isActive?`<button class="btn" onclick="go('#/contracts')">${t('contracts')}</button>`:`<button class="btn primary" onclick="go('#/subscription')">${t('subscribe')}</button>`}<button class="btn" onclick="go('#/favorites')">${t('favorites')}</button></div>
+  <div class="sub-status-actions">${isActive?`<button class="btn" onclick="go('#/contracts')">${t('contracts')}</button><button class="btn primary" onclick="openRenew()">${t('extend')}</button>`:`<button class="btn primary" onclick="go('#/subscription')">${t('subscribe')}</button>`}<button class="btn" onclick="go('#/favorites')">${t('favorites')}</button></div>
  </div>
  <div class="grid cols-3 sub-mini-grid">
   <div class="card stat"><div class="label">${t('plan')}</div><div class="num">${u.plan}</div></div>
   <div class="card stat"><div class="label">${t('status')}</div><div class="num ${statusClass}">${status}</div></div>
   <div class="card stat"><div class="label">${t('expires')}</div><div class="num">${u.expires}</div></div>
+ </div>
+ ${trainingCalculator()}`
+}
+function bannedScreen(){
+ return `<div class="card banned-screen"><div class="banned-icon">⛔</div><h1>${state.lang==='ar'?'تم حظر حسابك':'Account banned'}</h1><p>${state.lang==='ar'?'لقد تمت مخالفة الشروط والأحكام وتم حظر حسابكم':'You have violated the terms and conditions and your account has been banned'}</p><button class="btn primary" onclick="go('#/contact')">${t('contact')}</button></div>`
+}
+function supervisorPanel(){
+ return `<div class="section-title"><h2>${t('permissionTitle')}</h2></div><div class="card permission-note"><p>${t('supervisorInfo')}</p></div><div class="toolbar"><div class="search"><span class="sico">⌕</span><input id="supSearch" inputmode="numeric" oninput="renderSupResult(this.value)" placeholder="${t('permissionSearch')}"></div></div><div id="supResult">${supResultHtml('')}</div>`
+}
+function supResultHtml(q){
+ q=(q||'').trim();
+ if(!q)return '';
+ const u=getUsers().find(x=>x.phone===q);
+ if(!u)return `<div class="card empty"><h2>${t('noData')}</h2></div>`;
+ return `<div class="card"><div class="phone-cell" style="font-size:20px;margin-bottom:10px">${u.phone}</div>${u.banned?`<span class="badge red">${t('banned')}</span>`:`<button class="btn danger" onclick="openBanRequest('${u.phone}')">${t('ban')}</button>`}</div>`
+}
+function renderSupResult(q){const el=document.getElementById('supResult');if(el)el.innerHTML=supResultHtml(q)}
+function openBanRequest(targetPhone){
+ openModal(`<h2>${t('ban')}</h2><p class="login-help">${state.lang==='ar'?'السبب: التقاط الشاشة (ثابت) — إرفاق إثبات إلزامي، ولا يتم الحظر إلا بعد موافقة الإدارة.':'Reason: screen capture (fixed) — proof is mandatory and the ban only takes effect after admin approval.'}</p><div class="field"><label>${t('proof')} *</label><input id="banProofFile" type="file" accept="image/*"></div><button class="btn primary full" onclick="submitBanRequest('${targetPhone}')">${state.lang==='ar'?'إرسال طلب الحظر':'Submit ban request'}</button><button type="button" class="btn full" style="margin-top:8px" onclick="closeModalUI()">${t('cancel')}</button>`);
+}
+function submitBanRequest(targetPhone){
+ const file=document.getElementById('banProofFile')?.files?.[0];
+ if(!file){toast(t('noProof'));return}
+ const reader=new FileReader();
+ reader.onload=()=>{
+  const reqs=getBanRequests();
+  reqs.unshift({id:Date.now().toString(),supervisorPhone:state.currentPhone,targetPhone,reason:state.lang==='ar'?'التقاط الشاشة':'Screen capture',proof:reader.result,date:new Date().toLocaleString('ar-SA'),status:'pending'});
+  setBanRequests(reqs);
+  logActivity(`${state.lang==='ar'?'طلب حظر جديد من المشرف':'New ban request from supervisor'} ${state.currentPhone} ← ${targetPhone}`);
+  toast(state.lang==='ar'?'تم إرسال طلب الحظر لمراجعة الإدارة ✓':'Ban request sent for admin review ✓');
+  closeModalUI();render();
+ };
+ reader.readAsDataURL(file);
+}
+function banRequestsGrid(){
+ const reqs=getBanRequests().filter(r=>r.status==='pending');
+ if(!reqs.length)return `<div class="card empty"><h2>${t('noData')}</h2></div>`;
+ return `<div class="grid cols-2">${reqs.map(r=>`<div class="card alert-card" onclick="openBanRequestDetail('${r.id}')"><div class="alert-title">⛔ <b class="phone-cell">${r.targetPhone}</b></div><p>${state.lang==='ar'?'المشرف':'Supervisor'}: <span class="phone-cell">${r.supervisorPhone}</span></p><p>${state.lang==='ar'?'السبب':'Reason'}: ${r.reason}</p><span class="badge gold">${state.lang==='ar'?'بانتظار المراجعة':'Pending review'}</span></div>`).join('')}</div>`
+}
+function openBanRequestDetail(id){
+ const r=getBanRequests().find(x=>x.id===id);if(!r)return;
+ openModal(`<h2>${state.lang==='ar'?'طلب حظر':'Ban request'}</h2><p>${state.lang==='ar'?'المشترك':'Subscriber'}: <b class="phone-cell">${r.targetPhone}</b></p><p>${state.lang==='ar'?'المشرف':'Supervisor'}: <b class="phone-cell">${r.supervisorPhone}</b></p><p>${state.lang==='ar'?'السبب':'Reason'}: ${r.reason}</p><img src="${r.proof}" style="width:100%;border-radius:14px;margin:12px 0;border:1px solid var(--line)"><div style="display:flex;gap:10px;margin-top:6px"><button class="btn primary full" onclick="resolveBanRequest('${r.id}',true)">${state.lang==='ar'?'اعتماد الحظر':'Approve ban'}</button><button class="btn full danger" onclick="resolveBanRequest('${r.id}',false)">${state.lang==='ar'?'رفض':'Reject'}</button></div>`);
+}
+function resolveBanRequest(id,approve){
+ const reqs=getBanRequests();const r=reqs.find(x=>x.id===id);if(!r)return;
+ r.status=approve?'approved':'rejected';setBanRequests(reqs);
+ if(approve){const users=getUsers();const u=users.find(x=>x.phone===r.targetPhone);if(u){u.banned=true;u.reason=r.reason;setUsers(users)}}
+ toast(approve?(state.lang==='ar'?'تم اعتماد الحظر ✓':'Ban approved ✓'):(state.lang==='ar'?'تم رفض الطلب':'Request rejected'));
+ closeModalUI();render();
+}
+function statLink(label,num,cls,filter){return `<div class="card stat stat-link" onclick="goUserFilter('${filter}')"><div class="label">${label}</div><div class="num ${cls}">${num}</div></div>`}
+
+function publicReviewsSection(){
+ const approved=getReviews().filter(r=>r.approved);
+ if(!approved.length)return '';
+ return `<div class="section-title"><h2>${state.lang==='ar'?'آراء المشتركين':'Subscriber reviews'}</h2></div><div class="grid cols-3 feature-grid">${approved.map(r=>`<div class="card review-card"><div class="review-title">${state.lang==='ar'?'رسالة مُشترك':'Subscriber message'}</div><p>${escapeHtml(r.message)}</p></div>`).join('')}</div>`
+}
+function shouldPromptRating(u){return u&&!u.banned&&u.status==='active'&&daysLeft(u.expires)<=2&&daysLeft(u.expires)>=0&&!getReviews().some(r=>r.phone===u.phone)}
+let ratingDraft={ease:0,benefit:0,message:''};
+function starsRow(field,value){let html='';for(let i=1;i<=5;i++){html+=`<span class="star-pick ${i<=value?'on':''}" onclick="setRatingStar('${field}',${i})">★</span>`}return `<div class="stars-row">${html}</div>`}
+function setRatingStar(field,v){ratingDraft[field]=v;render()}
+function ratingPage(){
+ return `<div class="section-title"><h2>${state.lang==='ar'?'نسعد بتقييم الخدمة المقدمة إليكم':'We would love your feedback'}</h2></div>
+ <div class="card form-card rating-card">
+  <div class="field"><label>${state.lang==='ar'?'سهولة الانتقال بالموقع':'Ease of navigating the site'}</label>${starsRow('ease',ratingDraft.ease)}</div>
+  <div class="field"><label>${state.lang==='ar'?'فائدتك من التدريب (في حال الالتزام)':'Value of the training (if followed consistently)'}</label>${starsRow('benefit',ratingDraft.benefit)}</div>
+  <div class="field"><label>${state.lang==='ar'?'أترك لنا رسالتك':'Leave us your message'}</label><textarea id="ratingMsg" oninput="ratingDraft.message=this.value">${escapeHtml(ratingDraft.message)}</textarea></div>
+  <button class="btn primary full" onclick="submitRating()">${t('send')}</button>
  </div>`
 }
-function stat(label,num,cls=''){return `<div class="card stat"><div class="label">${label}</div><div class="num ${cls}">${num}</div></div>`}
-function statLink(label,num,cls,filter){return `<div class="card stat stat-link" onclick="goUserFilter('${filter}')"><div class="label">${label}</div><div class="num ${cls}">${num}</div></div>`}
+function submitRating(){
+ const msg=document.getElementById('ratingMsg')?.value.trim()||'';
+ if(!ratingDraft.ease||!ratingDraft.benefit||!msg){toast(t('noData'));return}
+ const reviews=getReviews();
+ reviews.unshift({id:Date.now().toString(),phone:state.currentPhone,ease:ratingDraft.ease,benefit:ratingDraft.benefit,message:msg,approved:false,date:new Date().toLocaleString('ar-SA')});
+ setReviews(reviews);
+ logActivity(`${state.lang==='ar'?'تقييم مشترك جديد':'New subscriber review'}: ${state.currentPhone}`);
+ ratingDraft={ease:0,benefit:0,message:''};
+ toast(state.lang==='ar'?'شكرًا لتقييمك ✓':'Thanks for your feedback ✓');
+ go('#/');
+}
+function reviewsGrid(){
+ const reviews=getReviews();
+ if(!reviews.length)return `<div class="card empty"><h2>${t('noData')}</h2></div>`;
+ return `<div class="grid cols-2">${reviews.map(r=>`<div class="card"><div class="phone-cell">${r.phone}</div><p>${'★'.repeat(r.ease)}${'☆'.repeat(5-r.ease)} — ${state.lang==='ar'?'سهولة الموقع':'Ease'}</p><p>${'★'.repeat(r.benefit)}${'☆'.repeat(5-r.benefit)} — ${state.lang==='ar'?'الفائدة':'Benefit'}</p><p>${escapeHtml(r.message)}</p><span class="badge ${r.approved?'green':'gold'}">${r.approved?(state.lang==='ar'?'منشور':'Published'):(state.lang==='ar'?'بانتظار المراجعة':'Pending review')}</span><div class="actions" style="margin-top:10px">${r.approved?`<button class="btn small" onclick="toggleReviewApproval('${r.id}',false)">${state.lang==='ar'?'إلغاء النشر':'Unpublish'}</button>`:`<button class="btn small primary" onclick="toggleReviewApproval('${r.id}',true)">${state.lang==='ar'?'اعتماد ونشر':'Approve & publish'}</button>`}</div></div>`).join('')}</div>`
+}
+function toggleReviewApproval(id,approve){const reviews=getReviews();const r=reviews.find(x=>x.id===id);if(!r)return;r.approved=approve;setReviews(reviews);toast(approve?(state.lang==='ar'?'تم النشر ✓':'Published ✓'):(state.lang==='ar'?'تم إلغاء النشر':'Unpublished'));render()}
+
+function grantDiscountCode(phone){
+ const code=prompt(state.lang==='ar'?'أدخل كود الخصم (مثال: F77)':'Enter discount code (e.g. F77)');
+ if(!code)return;
+ const users=getUsers();const u=users.find(x=>x.phone===phone);if(!u)return;
+ u.discountCode=code.trim().toUpperCase();setUsers(users);
+ logActivity(`${state.lang==='ar'?'تم منح كود خصم':'Discount code granted'} ${u.discountCode} ← ${phone}`);
+ toast(state.lang==='ar'?'تم إرسال كود الخصم للمشترك ✓':'Discount code sent to subscriber ✓');
+ render();
+}
+
+let renewDraft={plan:null,discount:null};
+function openRenew(){const u=currentUserRecord();if(!u)return;renewDraft={plan:u.plan&&u.plan!==t('pending')?u.plan:t('oneMonth'),discount:null};openModal(renewHtml())}
+function renewHtml(){
+ const priceMap={};priceMap[t('oneMonth')]=99;priceMap[t('threeMonths')]=229;priceMap[t('sixMonths')]=499;
+ const plans=[t('oneMonth'),t('threeMonths'),t('sixMonths')];
+ const base=priceMap[renewDraft.plan]||99;
+ const final=renewDraft.discount?(renewDraft.discount.free?0:Math.round(base*(1-renewDraft.discount.percent/100))):base;
+ return `<h2>${t('extend')}</h2>
+ <div class="field"><label>${t('plan')}</label><select id="renewPlan" onchange="renewDraft.plan=this.value;renewDraft.discount=null;updateRenewModal()">${plans.map(p=>`<option value="${p}" ${renewDraft.plan===p?'selected':''}>${p}</option>`).join('')}</select></div>
+ <div class="field"><label>${state.lang==='ar'?'كود الخصم (اختياري)':'Discount code (optional)'}</label><div style="display:flex;gap:8px"><input id="renewCode" placeholder="F77" style="flex:1"><button type="button" class="btn" onclick="applyRenewCode()">${state.lang==='ar'?'تطبيق الكود':'Apply code'}</button></div></div>
+ <div class="renew-price">${renewDraft.discount?`<span class="strike">${base} ${t('sar')}</span> `:''}<b>${final} ${t('sar')}</b></div>
+ <button class="btn primary full" onclick="confirmRenew()">${t('save')}</button>`
+}
+function updateRenewModal(){openModal(renewHtml())}
+function applyRenewCode(){const code=document.getElementById('renewCode')?.value||'';const d=findDiscountCode(code);if(!d){toast(state.lang==='ar'?'كود غير صالح':'Invalid code');return}renewDraft.discount=d;updateRenewModal()}
+function confirmRenew(){
+ const cu=currentUserRecord();if(!cu)return;
+ const users=getUsers();const rec=users.find(x=>x.phone===cu.phone);if(!rec)return;
+ if(renewDraft.discount&&renewDraft.discount.free){
+  rec.plan=t('sixMonths');
+  const base=(rec.expires&&rec.expires!=='—'&&new Date(rec.expires)>new Date())?new Date(rec.expires):new Date();
+  base.setDate(base.getDate()+180);rec.expires=base.toISOString().slice(0,10);rec.status='active';rec.banned=false;rec.discountCode='';
+  setUsers(users);toast(state.lang==='ar'?'تم تفعيل الاشتراك لمدة 6 أشهر ✓':'6-month subscription activated ✓');closeModalUI();render();return;
+ }
+ rec.plan=renewDraft.plan;
+ const days=renewDraft.plan===t('oneMonth')?30:renewDraft.plan===t('threeMonths')?90:180;
+ const base=(rec.expires&&rec.expires!=='—'&&new Date(rec.expires)>new Date())?new Date(rec.expires):new Date();
+ base.setDate(base.getDate()+days);rec.expires=base.toISOString().slice(0,10);rec.status='active';rec.banned=false;rec.discountCode='';
+ setUsers(users);toast(state.lang==='ar'?'تم تجديد الاشتراك ✓':'Subscription renewed ✓');closeModalUI();render();
+}
+
+function getCalcRows(phone){try{return JSON.parse(localStorage.getItem('saqr_calc_'+phone))||[{entry:'',exit:''}]}catch{return [{entry:'',exit:''}]}}
+function setCalcRows(phone,rows){localStorage.setItem('saqr_calc_'+phone,JSON.stringify(rows))}
+function calcNet(entry,exit){const e=parseFloat(entry),x=parseFloat(exit);if(isNaN(e)||isNaN(x))return null;return +(x-e).toFixed(2)}
+function trainingCalculator(){
+ const rows=getCalcRows(state.currentPhone);
+ return `<div class="section-title"><h2>${state.lang==='ar'?'حاسبة التدريب':'Training calculator'}</h2></div>
+ <div class="card calc-card"><div class="calc-header"><span>${state.lang==='ar'?'سعر الدخول':'Entry price'}</span><span>${state.lang==='ar'?'سعر الخروج':'Exit price'}</span><span>${state.lang==='ar'?'الصافي':'Net'}</span><span></span></div><div class="calc-rows" id="calcRows">${rows.map((r,i)=>calcRowHtml(r,i)).join('')}</div></div>
+ <div class="grid cols-3 sub-mini-grid" id="calcSummary">${calcSummary(rows)}</div>`
+}
+function calcRowHtml(r,i){const net=calcNet(r.entry,r.exit);return `<div class="calc-row"><input inputmode="decimal" placeholder="0.00" value="${r.entry}" onchange="updateCalcRow(${i},'entry',this.value)"><input inputmode="decimal" placeholder="0.00" value="${r.exit}" onchange="updateCalcRow(${i},'exit',this.value)"><div class="calc-net ${net==null?'':net>=0?'green':'red'}">${net==null?'—':net}</div><button type="button" class="btn icon small" onclick="deleteCalcRow(${i})">✕</button></div>`}
+function updateCalcRow(i,field,val){const phone=state.currentPhone;const rows=getCalcRows(phone);if(!rows[i])return;rows[i][field]=val;if(rows[i].entry!==''&&rows[i].exit!==''&&i===rows.length-1){rows.push({entry:'',exit:''})}setCalcRows(phone,rows);renderCalcRows()}
+function deleteCalcRow(i){const phone=state.currentPhone;const rows=getCalcRows(phone);rows.splice(i,1);if(!rows.length)rows.push({entry:'',exit:''});setCalcRows(phone,rows);renderCalcRows()}
+function renderCalcRows(){const phone=state.currentPhone;const rows=getCalcRows(phone);const box=document.getElementById('calcRows');if(box)box.innerHTML=rows.map((r,i)=>calcRowHtml(r,i)).join('');const sbox=document.getElementById('calcSummary');if(sbox)sbox.innerHTML=calcSummary(rows)}
+function calcSummary(rows){
+ const valid=rows.filter(r=>r.entry!==''&&r.exit!=='');
+ const totalEntry=+(valid.reduce((s,r)=>s+(parseFloat(r.entry)||0),0)*100).toFixed(2);
+ const totalExit=+(valid.reduce((s,r)=>s+(parseFloat(r.exit)||0),0)*100).toFixed(2);
+ const net=+(totalExit-totalEntry).toFixed(2);
+ const positive=net>=0;
+ const tip=positive?(state.lang==='ar'?'أداء ممتاز، استمر بالالتزام بخطة التداول 👏':'Great performance — keep following your trading plan 👏'):(state.lang==='ar'?'راجع نقاط الدخول والخروج، والالتزام بمهارات التدريب يحسّن نتيجتك القادمة 💪':'Review your entry/exit points — sticking to the training skills will improve your next result 💪');
+ return `<div class="card stat"><div class="label">${state.lang==='ar'?'إجمالي سعر الدخول':'Total entry'}</div><div class="num">${totalEntry}</div></div><div class="card stat"><div class="label">${state.lang==='ar'?'إجمالي سعر الخروج':'Total exit'}</div><div class="num">${totalExit}</div></div><div class="card stat calc-net-card ${positive?'pos':'neg'}"><div class="label">${state.lang==='ar'?'الصافي':'Net'}</div><div class="num ${positive?'green':'red'}">${net}</div><div class="calc-tip">${tip}</div></div>`
+}
 
 function contractPage(){
  const d=symbols[state.symbol],put=d.type==='PUT';
- return `<div class="ticker">${Object.keys(symbols).map(s=>`<button class="${s===state.symbol?'active':''}" onclick="selectSymbol('${s}')"><span class="fav-star ${state.fav.includes(s)?'on':''}" onclick="event.stopPropagation();toggleFav('${s}')">${state.fav.includes(s)?'★':'☆'}</span>${s}<small>${symbols[s].company}</small></button>`).join('')}</div>`+`<div class="section-title"><h2>${t('contracts')}</h2><span class="badge green">${t('live')}</span></div><div class="grid contract-layout"><section class="card" style="border:0.5px solid ${dirColor(d.type)}"><div class="option-head"><div><div class="symbol"><span class="fav-star inline ${state.fav.includes(state.symbol)?'on':''}" onclick="toggleFav('${state.symbol}')">${state.fav.includes(state.symbol)?'★':'☆'}</span> ${state.symbol}</div><div class="company">${d.company}</div><div class="badges"><span class="badge gold">${t('high')}</span><span class="badge">${t('short')}</span></div></div><button class="option-type ${put?'put':''}">${put?'↘':'↗'} ${put?t('put'):t('call')}</button></div><div class="price-grid"><div class="price current"><div>${t('current')}</div><div class="v red">${d.current}</div><div class="red">↘ -0.27 (-10.19%)</div></div><div class="price entry"><div>${t('entry')}</div><div class="v green">${d.entry}</div></div></div><div class="meta-grid"><div class="meta"><span class="small">${t('remaining')}</span><b>2 ${t('days')}</b></div><div class="meta"><span class="small">${t('level')}</span><b>${d.sub}</b></div><div class="meta"><span class="small">${t('expiry')}</span><b>${d.expiry}</b></div></div><div class="chart"><span class="chart-caption">${state.symbol} — ${d.strike}</span><svg viewBox="0 0 900 280" preserveAspectRatio="none"><polyline fill="none" stroke="${put?'#ff3154':'#00ef9b'}" stroke-width="5" points="0,220 70,205 130,214 180,175 230,185 280,140 340,155 400,122 455,145 500,100 560,130 620,110 680,72 735,98 790,60 850,86 900,45"/></svg></div></section><aside class="side-stack"><div class="card targets"><h2>${t('goals')} 🎯</h2>${d.targets.map((x,i)=>`<div class="target"><span>${state.lang==='ar'?'الهدف':'Target'} ${i+1}</span><b>${x[0]}</b><span class="pct">${x[1]}</span></div>`).join('')}</div><div class="card"><h3>⚡ ${t('level')}</h3><div class="big-value">${d.sub}</div></div><div class="card"><h3>⛔ ${t('stop')}</h3><div class="big-value">${put?'$2.95':'$1.20'}</div><div class="red">-51.0%</div></div><div class="card"><h3>📊 ${t('stats')}</h3><div class="meta"><span>${t('volume')}</span><b>12,450</b></div><div class="meta"><span>${t('open')}</span><b>8,230</b></div><div class="meta"><span>${t('iv')}</span><b>32.4%</b></div></div></aside></div><div class="card note-card"><b class="goldtxt">${t('note')}</b><p>${t('disclaimer')}</p></div>`
+ return `<div class="ticker">${Object.keys(symbols).map(s=>`<button class="${s===state.symbol?'active':''}" onclick="selectSymbol('${s}')"><span class="fav-star ${state.fav.includes(s)?'on':''}" onclick="event.stopPropagation();toggleFav('${s}')">${state.fav.includes(s)?'★':'☆'}</span>${s}<small>${symbols[s].company}</small></button>`).join('')}</div>`+`<div class="section-title"><h2>${t('contracts')}</h2><span class="badge green">${t('live')}</span></div><div class="grid contract-layout"><section class="card" style="border:0.5px solid ${dirColor(d.type)}"><div class="option-head"><div><div class="symbol"><span class="fav-star inline ${state.fav.includes(state.symbol)?'on':''}" onclick="toggleFav('${state.symbol}')">${state.fav.includes(state.symbol)?'★':'☆'}</span> ${state.symbol}</div><div class="company">${d.company}</div><div class="badges"><span class="badge gold">${t('high')}</span><span class="badge">${t('short')}</span></div></div><button class="option-type ${put?'put':''}">${put?'↘':'↗'} ${put?t('put'):t('call')}</button></div><div class="price-grid"><div class="price current"><div>${t('current')}</div><div class="v red">${d.current}</div><div class="red">↘ -0.27 (-10.19%)</div></div><div class="price entry"><div>${t('entry')}</div><div class="v green">${d.entry}</div></div></div><div class="meta-grid"><div class="meta"><span class="small">${t('remaining')}</span><b>2 ${t('days')}</b></div><div class="meta"><span class="small">${t('level')}</span><b>${d.sub}</b></div><div class="meta"><span class="small">${t('expiry')}</span><b>${d.expiry}</b></div></div><div class="chart"><span class="chart-caption">${state.symbol} — ${d.strike}</span><svg viewBox="0 0 900 280" preserveAspectRatio="none"><polyline fill="none" stroke="${put?'#ff3154':'#00ef9b'}" stroke-width="5" points="0,220 70,205 130,214 180,175 230,185 280,140 340,155 400,122 455,145 500,100 560,130 620,110 680,72 735,98 790,60 850,86 900,45"/></svg></div></section><aside class="side-stack"><div class="card targets"><h2>${t('goals')} 🎯</h2>${d.targets.map((x,i)=>`<div class="target"><span>${state.lang==='ar'?'الهدف':'Target'} ${i+1}</span><b>${x[0]}</b><span class="pct">${x[1]}</span></div>`).join('')}</div><div class="card"><h3>⚡ ${t('level')}</h3><div class="big-value">${d.sub}</div></div><div class="card"><h3>⛔ ${t('stop')}</h3><div class="big-value">${put?'$2.95':'$1.20'}</div><div class="red">-51.0%</div></div><div class="card"><h3>📊 ${t('stats')}</h3><div class="meta"><span>${t('volume')}</span><b>12,450</b></div><div class="meta"><span>${t('open')}</span><b>8,230</b></div><div class="meta"><span>${t('iv')}</span><b>32.4%</b></div></div></aside></div>`
 }
 function contractContentFor(q){if(!q)return contractPage();const keys=Object.keys(symbols).filter(s=>(s+' '+symbols[s].company).toLowerCase().includes(q.toLowerCase()));if(!keys.length)return `<div class="card empty"><h2>${t('noData')}</h2></div>`;return contractPage();}
 function filterContracts(q){const box=document.getElementById('contractContent');if(!box)return;box.innerHTML=contractContentFor(q)}
@@ -233,16 +411,91 @@ function favorites(){return `<div class="section-title"><h2>${t('favorites')}</h
 function alertsGrid(){return `<div class="grid cols-2">${[['🎯','CRM','$3.20'],['⚡','NVDA','$175.20'],['⛔','META','$600']].map(a=>`<div class="card alert-card" onclick="selectSymbol('${a[1]}');go('#/contracts')"><div class="alert-title">${a[0]} <b>${a[1]}</b></div><p>${state.lang==='ar'?'تم الوصول إلى المستوى المحدد':'Target level reached'}: <strong class="green">${a[2]}</strong></p><span class="badge green">${t('instant')}</span></div>`).join('')}</div>`}
 function alerts(){return `<div class="section-title"><h2>${t('alerts')}</h2></div>${alertsGrid()}`}
 function contactMessagesGrid(){const msgs=getMessages();return `<div class="messages">${msgs.length?msgs.map(m=>`<div class="card message-card"><div class="message-head"><b>${m.subject}</b><span>${m.date}</span></div><div class="phone-cell">${m.phone}</div><p>${escapeHtml(m.message)}</p></div>`).join(''):`<div class="card empty"><h2>${t('noData')}</h2></div>`}</div>`}
+function activityGrid(){
+ const items=getActivity();
+ if(!items.length)return `<div class="card empty"><h2>${t('noData')}</h2></div>`;
+ return `<div class="grid cols-2">${items.map(a=>`<div class="card"><p>${escapeHtml(a.text)}</p><span class="muted" style="font-size:12px">${a.date}</span></div>`).join('')}</div>`
+}
 let adminAlertsTab='alerts';
-function adminAlertsPage(){return `<div class="section-title"><h2>${t('alerts')}</h2></div><div class="role-tabs admin-alert-tabs"><button class="${adminAlertsTab==='alerts'?'active':''}" onclick="adminAlertsTab='alerts';render()">${t('alerts')}</button><button class="${adminAlertsTab==='contact'?'active':''}" onclick="adminAlertsTab='contact';render()">${t('contactInbox')}</button></div>${adminAlertsTab==='alerts'?alertsGrid():contactMessagesGrid()}`}
-function subscription(){const plans=[[t('oneMonth'),99],[t('threeMonths'),229],[t('sixMonths'),499]];return `<div class="section-title"><h2>${t('subscription')}</h2><span class="badge gold">${t('sameFeatures')}</span></div><div class="grid cols-3 pricing">${plans.map((p)=>`<div class="card price-card"><h2>${p[0]}</h2><div class="price-sar">${p[1]} <small>${t('sar')}</small></div><div class="feature-list"><span>✓ ${t('live')}</span><span>✓ ${t('instant')}</span><span>✓ ${t('analytics')}</span></div><button class="btn primary" onclick="demoSubscribe('${p[0]}',${p[1]})">${t('subscribe')}</button></div>`).join('')}</div>`}
-function demoSubscribe(plan,price){if(state.role!=='member'){toast(t('loginError'));go('#/login');return}const users=getUsers();const u=users.find(x=>x.phone===DEMO_MEMBER_PHONE);if(u){u.plan=plan;u.status='active';u.banned=false;const days=plan===t('oneMonth')?30:plan===t('threeMonths')?90:180;const d=new Date();d.setDate(d.getDate()+days);u.expires=d.toISOString().slice(0,10);setUsers(users)}toast(`${plan} — ${price} ${t('sar')} ✓`)}
+function adminAlertsPage(){
+ const tabs=[['alerts',t('alerts')],['activity',state.lang==='ar'?'النشاط':'Activity'],['contact',t('contactInbox')],['requests',state.lang==='ar'?'طلبات الحظر':'Ban requests'],['reviews',state.lang==='ar'?'التقييمات':'Reviews']];
+ const contentMap={alerts:alertsGrid(),activity:activityGrid(),contact:contactMessagesGrid(),requests:banRequestsGrid(),reviews:reviewsGrid()};
+ return `<div class="section-title"><h2>${t('alerts')}</h2></div><div class="role-tabs admin-alert-tabs">${tabs.map(([k,label])=>`<button class="${adminAlertsTab===k?'active':''}" onclick="adminAlertsTab='${k}';render()">${label}</button>`).join('')}</div>${contentMap[adminAlertsTab]}`
+}
+let checkoutPlan=null;
+let checkoutPayMethod='';
+let checkoutDiscount=null;
+function goCheckout(planName,price){checkoutPlan={planName,price};checkoutPayMethod='';checkoutDiscount=null;go('#/checkout')}
+function subscription(){const plans=[[t('oneMonth'),99],[t('threeMonths'),229],[t('sixMonths'),499]];return `<div class="section-title"><h2>${t('subscription')}</h2><span class="badge gold">${t('sameFeatures')}</span></div><div class="grid cols-3 pricing">${plans.map((p)=>`<div class="card price-card"><h2>${p[0]}</h2><div class="price-sar">${p[1]} <small>${t('sar')}</small></div><div class="feature-list"><span>✓ ${t('live')}</span><span>✓ ${t('instant')}</span><span>✓ ${t('analytics')}</span></div><button class="btn primary" onclick="goCheckout('${p[0]}',${p[1]})">${t('subscribe')}</button></div>`).join('')}</div>`}
+function checkoutPage(){
+ if(!checkoutPlan)return `<div class="card empty"><h2>${t('noData')}</h2></div>`;
+ const finalPrice=checkoutDiscount?(checkoutDiscount.free?0:Math.round(checkoutPlan.price*(1-checkoutDiscount.percent/100))):checkoutPlan.price;
+ return `<div class="card form-card checkout-card">
+  <h1>${state.lang==='ar'?'إتمام الاشتراك':'Complete subscription'}</h1>
+  <p class="login-help">${checkoutPlan.planName} — ${checkoutDiscount?`<span class="strike">${checkoutPlan.price} ${t('sar')}</span> `:''}<b>${finalPrice} ${t('sar')}</b></p>
+  <div class="field"><label>${t('phone')}</label><input id="coPhone" inputmode="numeric" placeholder="05xxxxxxxx"></div>
+  <div class="field"><label>Email</label><input id="coEmail" type="email" placeholder="name@email.com"></div>
+  <div class="field"><label>${t('password')}</label><input id="coPw" type="password" oninput="updateCoChecklist()"></div>
+  <div class="field"><label>${state.lang==='ar'?'تأكيد كلمة المرور':'Confirm password'}</label><input id="coPw2" type="password" oninput="updateCoChecklist()"></div>
+  <div id="coChecklist" class="pw-checklist">${renderPwChecklist('','')}</div>
+  <div class="field"><label>${state.lang==='ar'?'كود الخصم (اختياري)':'Discount code (optional)'}</label><div style="display:flex;gap:8px"><input id="coCode" placeholder="F77" style="flex:1"><button type="button" class="btn" onclick="applyCoCode()">${state.lang==='ar'?'تطبيق الكود':'Apply code'}</button></div></div>
+  ${checkoutDiscount&&checkoutDiscount.free?'':`<div class="section-title" style="margin-top:24px"><h2 style="font-size:18px">${state.lang==='ar'?'طريقة الدفع':'Payment method'}</h2></div><div class="pay-methods"><button type="button" class="pay-method ${checkoutPayMethod==='card'?'active':''}" onclick="selectPayMethod('card')">💳 ${state.lang==='ar'?'بطاقة مصرفية':'Bank card'}</button><button type="button" class="pay-method ${checkoutPayMethod==='apple'?'active':''}" onclick="selectPayMethod('apple')">🍏 Apple Pay</button></div><div id="payFields">${payFieldsHtml()}</div>`}
+  <button class="btn primary full" style="margin-top:20px" onclick="completeCheckout()">${state.lang==='ar'?'إتمام الاشتراك':'Complete subscription'}</button>
+ </div>`
+}
+function selectPayMethod(m){checkoutPayMethod=m;render()}
+function payFieldsHtml(){
+ if(checkoutPayMethod==='card')return `<div class="field"><label>${state.lang==='ar'?'رقم البطاقة':'Card number'}</label><input id="cardNum" inputmode="numeric" placeholder="4111 1111 1111 1111"></div><div class="grid cols-2"><div class="field"><label>${state.lang==='ar'?'تاريخ الانتهاء':'Expiry'}</label><input id="cardExp" placeholder="MM/YY"></div><div class="field"><label>CVV</label><input id="cardCvv" inputmode="numeric" placeholder="123"></div></div>`;
+ if(checkoutPayMethod==='apple')return `<div class="apple-pay-btn">🍏 Pay</div>`;
+ return '';
+}
+function updateCoChecklist(){const p=document.getElementById('coPw')?.value||'',p2=document.getElementById('coPw2')?.value||'';const box=document.getElementById('coChecklist');if(box)box.innerHTML=renderPwChecklist(p,p2)}
+function applyCoCode(){const code=document.getElementById('coCode')?.value||'';const d=findDiscountCode(code);if(!d){toast(state.lang==='ar'?'كود غير صالح':'Invalid code');return}checkoutDiscount=d;render()}
+function completeCheckout(){
+ const phone=document.getElementById('coPhone')?.value.trim();
+ const email=document.getElementById('coEmail')?.value.trim();
+ const p=document.getElementById('coPw')?.value||'';
+ const p2=document.getElementById('coPw2')?.value||'';
+ const c=passwordChecks(p);
+ const pwOk=Object.values(c).every(Boolean)&&!!p&&p===p2;
+ const validPhone=/^05\d{8}$/.test(phone);
+ const validEmail=/^\S+@\S+\.\S+$/.test(email);
+ const freeCode=checkoutDiscount&&checkoutDiscount.free;
+ let payOk=freeCode;
+ if(!freeCode){
+  if(checkoutPayMethod==='card')payOk=!!document.getElementById('cardNum')?.value.trim()&&!!document.getElementById('cardExp')?.value.trim()&&!!document.getElementById('cardCvv')?.value.trim();
+  else if(checkoutPayMethod==='apple')payOk=true;
+ }
+ if(!validPhone||!validEmail||!pwOk||!payOk){showInvalidCheckoutModal();return}
+ const users=getUsers();
+ let u=users.find(x=>x.phone===phone);
+ const planName=freeCode?t('sixMonths'):checkoutPlan.planName;
+ const days=planName===t('oneMonth')?30:planName===t('threeMonths')?90:180;
+ const expires=plusDays(days);
+ if(u){u.password=p;u.plan=planName;u.status='active';u.banned=false;u.expires=expires;}
+ else{u={phone,password:p,plan:planName,status:'active',start:plusDays(0),expires,supervisor:false,banned:false,reason:'',flagged:false,discountCode:'',ratingPromptSent:false};users.push(u)}
+ setUsers(users);
+ logActivity(`${state.lang==='ar'?'اشتراك جديد':'New subscription'}: ${phone} — ${planName}`);
+ showCheckoutSuccess();
+}
+function showInvalidCheckoutModal(){openModal(`<div class="modal-alert"><div class="modal-alert-icon">⚠️</div><h2>${state.lang==='ar'?'بيانات الاشتراك غير صحيحة':'Subscription details are invalid'}</h2><p>${state.lang==='ar'?'يرجى التأكد من رقم الجوال والإيميل وكلمة المرور وطريقة الدفع.':'Please check the mobile number, email, password, and payment method.'}</p><button class="btn primary full" onclick="closeModalUI()">${state.lang==='ar'?'موافق':'OK'}</button></div>`)}
+function showCheckoutSuccess(){openModal(`<div class="modal-alert success"><div class="modal-alert-icon">✓</div><h2>${state.lang==='ar'?'تم الاشتراك بنجاح':'Subscription successful'}</h2><button class="btn primary full" onclick="closeModalUI();checkoutPlan=null;go('#/login')">${state.lang==='ar'?'حسنًا':'OK'}</button></div>`)}
 
 function login(){return `<div class="card form-card login-card"><h1>${t('welcome')}</h1><div class="role-tabs"><button class="${loginMode==='member'?'active':''}" onclick="loginMode='member';render()">${t('member')}</button><button class="${loginMode==='admin'?'active':''}" onclick="loginMode='admin';render()">${t('adminRole')}</button></div><p class="login-help">${loginMode==='member'?t('memberOnly'):t('adminOnly')}</p><div class="field"><label>${loginMode==='member'?t('phone'):'اسم المستخدم'}</label><input id="loginUser" placeholder="${loginMode==='member'?'05xxxxxxxx':'admin'}" autocomplete="username"></div><div class="field"><label>${t('password')}</label><input id="loginPass" type="password" autocomplete="current-password"></div><button class="btn primary full" onclick="loginDemo()">${t('enter')}</button>${loginMode==='member'?`<button type="button" class="forgot-link" onclick="openForgot()">${t('forgot')}</button>`:''}</div>`}
 let loginMode='member';
-function loginDemo(){const u=document.getElementById('loginUser')?.value.trim(),p=document.getElementById('loginPass')?.value;const currentMemberPw=memberPasswordOverride||DEMO_MEMBER_PASSWORD;const ok=loginMode==='member'?(u===DEMO_MEMBER_PHONE&&p===currentMemberPw):(u===DEMO_ADMIN_USER&&p===DEMO_ADMIN_PASSWORD);if(!ok){toast(t('loginError'));return}state.role=loginMode;save();resetIdleTimer();go('#/')}
-function contact(){return `<div class="card form-card"><h1>${t('contact')}</h1><div class="field"><label>${t('phone')} *</label><input id="contactPhone" value="${state.role==='member'?DEMO_MEMBER_PHONE:''}"></div><div class="field"><label>${t('subject')} *</label><input id="contactSubject"></div><div class="field"><label>${t('message')} *</label><textarea id="contactMessage"></textarea></div><button class="btn primary full" onclick="sendContact()">${t('send')}</button></div>`}
-function sendContact(){const p=document.getElementById('contactPhone')?.value.trim(),s=document.getElementById('contactSubject')?.value.trim(),m=document.getElementById('contactMessage')?.value.trim();if(!p||!s||!m){toast(t('noData'));return}const msgs=getMessages();msgs.unshift({phone:p,subject:s,message:m,date:new Date().toLocaleString('ar-SA')});setMessages(msgs);toast(state.lang==='ar'?'تم إرسال الرسالة وسيتم الرد عليكم قريبًا ✓':'Your message has been sent, we will reply soon ✓');go(state.role==='admin'?'#/admin/contact':'#/')}
+function loginDemo(){
+ const u=document.getElementById('loginUser')?.value.trim(),p=document.getElementById('loginPass')?.value;
+ if(loginMode==='admin'){
+  if(u===DEMO_ADMIN_USER&&p===DEMO_ADMIN_PASSWORD){state.role='admin';state.currentPhone='';save();resetIdleTimer();go('#/')}
+  else toast(t('loginError'));
+  return;
+ }
+ const acc=getUsers().find(x=>x.phone===u);
+ if(!acc||acc.password!==p){toast(t('loginError'));return}
+ state.role='member';state.currentPhone=acc.phone;save();resetIdleTimer();go('#/');
+}
+function contact(){return `<div class="card form-card"><h1>${t('contact')}</h1><div class="field"><label>${t('phone')} *</label><input id="contactPhone" value="${isLogged()&&state.currentPhone?state.currentPhone:''}"></div><div class="field"><label>${t('subject')} *</label><input id="contactSubject"></div><div class="field"><label>${t('message')} *</label><textarea id="contactMessage"></textarea></div><button class="btn primary full" onclick="sendContact()">${t('send')}</button></div>`}
+function sendContact(){const p=document.getElementById('contactPhone')?.value.trim(),s=document.getElementById('contactSubject')?.value.trim(),m=document.getElementById('contactMessage')?.value.trim();if(!p||!s||!m){toast(t('noData'));return}const msgs=getMessages();msgs.unshift({phone:p,subject:s,message:m,date:new Date().toLocaleString('ar-SA')});setMessages(msgs);logActivity(`${state.lang==='ar'?'رسالة تواصل جديدة':'New contact message'}: ${p}`);const subjEl=document.getElementById('contactSubject'),msgEl=document.getElementById('contactMessage');if(subjEl)subjEl.value='';if(msgEl)msgEl.value='';toast(state.lang==='ar'?'تم إرسال الرسالة وسيتم الرد عليكم قريبًا ✓':'Your message has been sent, we will reply soon ✓')}
 
 let adminUserFilter='';
 function goUserFilter(f){adminUserFilter=f;go('#/admin/users')}
@@ -255,7 +508,7 @@ function applyUserFilter(list,f){
 function admin(){const users=getUsers();const active=users.filter(u=>!u.banned&&u.status==='active').length;const paid=users.filter(u=>!u.banned&&u.status==='active'&&u.plan!=='بدون اشتراك').length;const banned=users.filter(u=>u.banned).length;const soon=users.filter(u=>u.status==='active'&&!u.banned&&daysLeft(u.expires)<=2).length;return `<div class="section-title"><h2>${t('admin')}</h2><span class="badge gold">${t('adminRole')}</span></div><div class="admin-grid">${statLink(t('subscribers'),active,'','active')}${statLink(t('payments'),paid,'green','paid')}${statLink(t('banned'),banned,'red','banned')}${statLink(t('expiring'),soon,'goldtxt','expiring')}</div><div class="admin-shortcuts"><a class="card shortcut" href="#/admin/users"><b>${t('users')}</b><span>›</span></a><a class="card shortcut" href="#/admin/permissions"><b>${t('permissions')}</b><span>›</span></a><a class="card shortcut" href="#/admin/contact"><b>${t('contactInbox')}</b><span>${getMessages().length}</span></a></div>`}
 function daysLeft(date){if(!date||date==='—')return 999;return Math.ceil((new Date(date)-new Date())/86400000)}
 function adminUsers(){const initial=adminUserFilter;adminUserFilter='';return `<div class="section-title"><h2>${t('users')}</h2></div><div class="toolbar"><div class="search"><span class="sico">⌕</span><input id="userSearch" oninput="renderUserRows(this.value)" placeholder="${t('permissionSearch')}"></div></div><div class="card table-wrap"><table class="table"><thead><tr><th>${t('mobile')}</th><th>${t('plan')}</th><th>${t('loginDate')}</th><th>${t('status')}</th><th>${t('expires')}</th><th>${t('action')}</th></tr></thead><tbody id="userRows" data-filter="${initial}">${userRows('',initial)}</tbody></table></div>`}
-function userRows(q,f){return applyUserFilter(getUsers(),f||'').filter(u=>u.phone.includes(q||'')).map(u=>`<tr><td class="phone-cell">${u.phone}${u.supervisor?` <span class="badge gold">${t('supervisor')}</span>`:''}</td><td>${u.plan}</td><td>${u.start||'—'}</td><td><span class="badge ${u.banned?'red':u.status==='active'?'green':''}">${u.banned?t('banned'):u.status==='active'?t('active'):t('pending')}</span>${u.banned&&u.reason?`<div class="reason">${t('banReason')}: ${escapeHtml(u.reason)}</div>`:''}</td><td>${u.expires}</td><td class="actions"><button class="btn small" onclick="extendUser('${u.phone}')">${t('extend')}</button><button class="btn small" onclick="assignSupervisor('${u.phone}')">${u.supervisor?t('unban')+' / ':''}${t('assign')}</button><button class="btn small danger" onclick="banUser('${u.phone}')">${u.banned?t('unban'):t('ban')}</button></td></tr>`).join('')||`<tr><td colspan="6" class="empty-cell">${t('noData')}</td></tr>`}
+function userRows(q,f){return applyUserFilter(getUsers(),f||'').filter(u=>u.phone.includes(q||'')).map(u=>`<tr><td class="phone-cell">${u.phone}${u.supervisor?` <span class="badge gold">${t('supervisor')}</span>`:''}</td><td>${u.plan}</td><td>${u.start||'—'}</td><td><span class="badge ${u.banned?'red':u.status==='active'?'green':''}">${u.banned?t('banned'):u.status==='active'?t('active'):t('pending')}</span>${u.banned&&u.reason?`<div class="reason">${t('banReason')}: ${escapeHtml(u.reason)}</div>`:''}</td><td>${u.expires}</td><td class="actions"><button class="btn small" onclick="extendUser('${u.phone}')">${t('extend')}</button><button class="btn small" onclick="grantDiscountCode('${u.phone}')">${state.lang==='ar'?'كود خصم':'Discount'}</button><button class="btn small" onclick="assignSupervisor('${u.phone}')">${u.supervisor?t('unban')+' / ':''}${t('assign')}</button><button class="btn small danger" onclick="banUser('${u.phone}')">${u.banned?t('unban'):t('ban')}</button></td></tr>`).join('')||`<tr><td colspan="6" class="empty-cell">${t('noData')}</td></tr>`}
 function renderUserRows(q){const el=document.getElementById('userRows');if(el)el.innerHTML=userRows(q,el.dataset.filter)}
 function assignSupervisor(phone){const users=getUsers();const u=users.find(x=>x.phone===phone);if(!u)return;u.supervisor=!u.supervisor;setUsers(users);toast(t('assigned'));render()}
 function banUser(phone){const users=getUsers();const u=users.find(x=>x.phone===phone);if(!u)return;if(u.banned){u.banned=false;u.reason='';setUsers(users);render();return}const reason=prompt(t('banReason'));if(!reason)return;u.banned=true;u.reason=reason;setUsers(users);toast(t('bannedSuccess'));render()}
@@ -263,6 +516,10 @@ function extendUser(phone){const users=getUsers();const u=users.find(x=>x.phone=
 function adminPermissions(){const users=getUsers();return `<div class="section-title"><h2>${t('permissionTitle')}</h2></div><div class="card permission-note"><p>${t('supervisorInfo')}</p></div><div class="toolbar"><div class="search"><span class="sico">⌕</span><input id="permSearch" oninput="renderPermRows(this.value)" placeholder="${t('permissionSearch')}"></div></div><div class="card table-wrap"><table class="table"><thead><tr><th>${t('mobile')}</th><th>${t('flagged')}</th><th>${t('action')}</th></tr></thead><tbody id="permRows">${permRows(users,'')}</tbody></table></div>`}
 function permRows(users,q){return users.filter(u=>u.phone.includes(q||'')).map(u=>`<tr><td class="phone-cell">${u.phone}</td><td>${u.flagged?`<span class="badge gold">${t('flagged')}</span>`:`<span class="muted">—</span>`}</td><td class="actions"><button class="btn small" onclick="assignSupervisor('${u.phone}')">${u.supervisor?t('supervisor'):t('assign')}</button><button class="btn small danger" onclick="banUser('${u.phone}')">${u.banned?t('unban'):t('ban')}</button></td></tr>`).join('')||`<tr><td colspan="3" class="empty-cell">${t('noData')}</td></tr>`}
 function renderPermRows(q){const el=document.getElementById('permRows');if(el)el.innerHTML=permRows(getUsers(),q)}
+function adminSupervisors(){
+ const sups=getUsers().filter(u=>u.supervisor);
+ return `<div class="section-title"><h2>${t('supervisors')}</h2></div><div class="card table-wrap"><table class="table"><thead><tr><th>${t('mobile')}</th><th>${t('status')}</th><th>${t('action')}</th></tr></thead><tbody>${sups.length?sups.map(u=>`<tr><td class="phone-cell">${u.phone}</td><td><span class="badge ${u.banned?'red':'green'}">${u.banned?t('banned'):t('active')}</span></td><td class="actions"><button class="btn small" onclick="assignSupervisor('${u.phone}')">${state.lang==='ar'?'إنزال':'Demote'}</button><button class="btn small danger" onclick="banUser('${u.phone}')">${u.banned?t('unban'):t('ban')}</button></td></tr>`).join(''):`<tr><td colspan="3" class="empty-cell">${t('noData')}</td></tr>`}</tbody></table></div>`
+}
 function adminContact(){const msgs=getMessages();return `<div class="section-title"><h2>${t('contactInbox')}</h2><span class="badge green">${msgs.length}</span></div>${contactMessagesGrid()}`}
 function escapeHtml(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
 function logout(){closeMenu();clearTimeout(idleTimer);state.role='visitor';localStorage.removeItem('saqr_role');location.hash='/';render();}
@@ -279,18 +536,30 @@ function toggleFav(s){if(!symbols[s])return;const i=state.fav.indexOf(s);if(i>-1
 function render(){
  let path=location.hash.replace(/^#/,'')||'/';
  if(path==='/logout'){logout();return}
- if(path==='/'){if(state.role==='member'){layout(memberHome(),'/');return}if(state.role==='admin'){layout(admin(),'/');return}layout(publicHome(),'/');return}
+ if(path==='/'){
+  if(state.role==='member'){
+   if(isBannedNow()){layout(bannedScreen(),'/',false);return}
+   if(isSupervisor()){layout(supervisorPanel(),'/');return}
+   layout(memberHome(),'/');return;
+  }
+  if(state.role==='admin'){layout(admin(),'/');return}
+  layout(publicHome(),'/');return;
+ }
+ if(path==='/checkout'){if(!checkoutPlan){go('#/subscription');return}layout(checkoutPage(),path,false);return}
  if(path==='/subscription'){if(state.role==='visitor'){layout(subscription(),path,false);return}else{go('#/');return}}
  if(path==='/login'){layout(login(),path,false);return}
- if(path==='/contact'){layout(contact(),path,state.role!=='visitor');return}
+ if(path==='/contact'){layout(contact(),path,state.role!=='visitor'&&!isBannedNow()&&!isSupervisor());return}
  if(state.role==='visitor'){layout(publicHome(),'/');return}
+ if(state.role==='member'&&(isBannedNow()||isSupervisor())){go('#/');return}
  if(path==='/contracts')layout(contracts(),path);
  else if(path==='/favorites')layout(favorites(),path);
  else if(path==='/alerts')layout(state.role==='admin'?adminAlertsPage():alerts(),path);
+ else if(path==='/ratings')layout(ratingPage(),path);
  else if(path==='/admin')layout(admin(),path);
  else if(path==='/admin/users')layout(adminUsers(),path);
  else if(path==='/admin/permissions')layout(adminPermissions(),path);
  else if(path==='/admin/contact')layout(adminContact(),path);
+ else if(path==='/admin/supervisors')layout(adminSupervisors(),path);
  else layout(`<div class="card empty"><h2>404</h2><p>${t('noData')}</p></div>`,'');
 }
 window.addEventListener('hashchange',render);render();resetIdleTimer();
