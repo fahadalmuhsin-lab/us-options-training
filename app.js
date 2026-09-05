@@ -23,7 +23,7 @@ const T = {
   ar:{
     brand:'صقر أوبشن', home:'الرئيسية', contracts:'العقود', favorites:'المفضلة', analyses:'التحليلات',
     alerts:'الإشعارات', subscription:'الاشتراكات', login:'تسجيل الدخول', contact:'تواصل معنا', logout:'تسجيل الخروج',
-    admin:'لوحة التحكم', users:'إدارة المستخدمين', permissions:'المهام والصلاحيات', supervisors:'المشرفون', search:'ابحث عن شركة أو رمز...',
+    admin:'لوحة التحكم', users:'إدارة المستخدمين', manage:'إدارة المستخدمين', permissions:'المهام والصلاحيات', supervisors:'المشرفون', search:'ابحث عن شركة أو رمز...',
     subscribe:'اشترك الآن', start:'تسجيل الدخول', live:'بيانات لحظية', auto:'تحديث آلي', instant:'إشعارات فورية',
     analytics:'تحليلات', training:'منصة متخصصة في تدريب ومتابعة عقود الخيارات الأمريكية، بواجهة منظمة وتحليلات واضحة وتنبيهات فورية عند اقتراب مستويات الدخول والأهداف ووقف الخسارة.',
     features:'مميزات المنصة', results:'نتائج التدريب', total:'إجمالي عقود التدريب', entryTotal:'إجمالي أسعار الدخول', loss:'إجمالي الخسائر', net:'صافي الربح',
@@ -47,7 +47,7 @@ const T = {
     loginError:'بيانات الدخول غير صحيحة', roleRequired:'اختر نوع الحساب',
   },
   en:{
-    brand:'Saqr Options', home:'Home', contracts:'Contracts', favorites:'Favorites', analyses:'Analytics', alerts:'Alerts', subscription:'Subscriptions', login:'Log in', contact:'Contact us', logout:'Log out', admin:'Dashboard', users:'User management', permissions:'Tasks & permissions', supervisors:'Supervisors', search:'Search for a company or symbol...', subscribe:'Subscribe now', start:'Log in', live:'Live data', auto:'Auto update', instant:'Instant alerts', analytics:'Analytics', training:'A specialized platform for training and tracking U.S. options contracts with organized views, clear analytics, and instant alerts.', features:'Platform features', results:'Training results', total:'Total contracts', entryTotal:'Total entry prices', loss:'Total losses', net:'Net profit', goals:'Targets', level:'Strike level', stop:'Stop loss', stats:'Contract statistics', volume:'Trading volume', open:'Open contracts', iv:'IV volatility', current:'Current contract price', entry:'Entry price', expiry:'Expiry date', remaining:'Time remaining', days:'days', call:'CALL', put:'PUT', high:'High Confidence', short:'Short Term', note:'Important note', disclaimer:'This is not financial advice. All decisions are your personal responsibility. Options trading involves high risk.', welcome:'Log in', phone:'Mobile number', password:'Password', enter:'Log in', member:'Subscriber', adminRole:'Admin', memberOnly:'Use the subscriber mobile number and password.', adminOnly:'Use the admin username and password.', forgot:'Forgot password?', payments:'Paid subscriptions', banned:'Banned subscribers', expiring:'Expiring subscribers', subscribers:'Active subscribers', settings:'Settings', noData:'No data to display', allUsers:'All users', assign:'Assign supervisor', ban:'Ban', unban:'Unban', banReason:'Ban reason', save:'Save', cancel:'Cancel', supervisor:'Supervisor', active:'Active', expired:'Expired', pending:'No subscription', plan:'Plan', status:'Status', mobile:'Mobile number', expires:'Expires', loginDate:'Login date', action:'Action', contactInbox:'Contact messages', subject:'Subject', message:'Message', send:'Send', received:'Inbox', proof:'Attach proof', screenshot:'Screen capture', supervisorInfo:'Supervisors can only ban subscribers flagged for screen capture and must attach proof. Financial and subscriber totals are hidden.', extend:'Extend subscription', noSubscription:'No subscription', extendPrompt:'Enter extension days', close:'Close', menu:'Menu', oneMonth:'1 month', threeMonths:'3 months', sixMonths:'6 months', sar:'SAR', sameFeatures:'Live data • Instant alerts • Analytics', demo:'Demo build', adminMessages:'Messages received from visitors and subscribers', permissionTitle:'Tasks & permissions', permissionSearch:'Search by mobile', flagged:'Screen-capture flagged', noProof:'No proof attached', assigned:'Supervisor assigned', bannedSuccess:'Subscriber banned', logoutDone:'Logged out', loginError:'Invalid login details', roleRequired:'Choose account type'
+    brand:'Saqr Options', home:'Home', contracts:'Contracts', favorites:'Favorites', analyses:'Analytics', alerts:'Alerts', subscription:'Subscriptions', login:'Log in', contact:'Contact us', logout:'Log out', admin:'Dashboard', users:'User management', manage:'User management', permissions:'Tasks & permissions', supervisors:'Supervisors', search:'Search for a company or symbol...', subscribe:'Subscribe now', start:'Log in', live:'Live data', auto:'Auto update', instant:'Instant alerts', analytics:'Analytics', training:'A specialized platform for training and tracking U.S. options contracts with organized views, clear analytics, and instant alerts.', features:'Platform features', results:'Training results', total:'Total contracts', entryTotal:'Total entry prices', loss:'Total losses', net:'Net profit', goals:'Targets', level:'Strike level', stop:'Stop loss', stats:'Contract statistics', volume:'Trading volume', open:'Open contracts', iv:'IV volatility', current:'Current contract price', entry:'Entry price', expiry:'Expiry date', remaining:'Time remaining', days:'days', call:'CALL', put:'PUT', high:'High Confidence', short:'Short Term', note:'Important note', disclaimer:'This is not financial advice. All decisions are your personal responsibility. Options trading involves high risk.', welcome:'Log in', phone:'Mobile number', password:'Password', enter:'Log in', member:'Subscriber', adminRole:'Admin', memberOnly:'Use the subscriber mobile number and password.', adminOnly:'Use the admin username and password.', forgot:'Forgot password?', payments:'Paid subscriptions', banned:'Banned subscribers', expiring:'Expiring subscribers', subscribers:'Active subscribers', settings:'Settings', noData:'No data to display', allUsers:'All users', assign:'Assign supervisor', ban:'Ban', unban:'Unban', banReason:'Ban reason', save:'Save', cancel:'Cancel', supervisor:'Supervisor', active:'Active', expired:'Expired', pending:'No subscription', plan:'Plan', status:'Status', mobile:'Mobile number', expires:'Expires', loginDate:'Login date', action:'Action', contactInbox:'Contact messages', subject:'Subject', message:'Message', send:'Send', received:'Inbox', proof:'Attach proof', screenshot:'Screen capture', supervisorInfo:'Supervisors can only ban subscribers flagged for screen capture and must attach proof. Financial and subscriber totals are hidden.', extend:'Extend subscription', noSubscription:'No subscription', extendPrompt:'Enter extension days', close:'Close', menu:'Menu', oneMonth:'1 month', threeMonths:'3 months', sixMonths:'6 months', sar:'SAR', sameFeatures:'Live data • Instant alerts • Analytics', demo:'Demo build', adminMessages:'Messages received from visitors and subscribers', permissionTitle:'Tasks & permissions', permissionSearch:'Search by mobile', flagged:'Screen-capture flagged', noProof:'No proof attached', assigned:'Supervisor assigned', bannedSuccess:'Subscriber banned', logoutDone:'Logged out', loginError:'Invalid login details', roleRequired:'Choose account type'
   }
 };
 const t = k => T[state.lang][k] || k;
@@ -66,16 +66,16 @@ const symbols = {
 function plusDays(n){const d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)}
 function getUsers(){
   const fallback=[
-    {phone:DEMO_MEMBER_PHONE,password:DEMO_MEMBER_PASSWORD,plan:'6 شهور',status:'active',start:'2026-03-12',expires:'2026-09-12',supervisor:false,banned:false,reason:'',flagged:true,discountCode:'',ratingPromptSent:false},
-    {phone:'0501234567',password:'Demo!2026',plan:'3 شهور',status:'active',start:'2026-06-04',expires:'2026-09-04',supervisor:false,banned:false,reason:'',flagged:false,discountCode:'',ratingPromptSent:false},
-    {phone:'0559876543',password:'Demo!2026',plan:'شهر',status:'active',start:'2026-08-18',expires:'2026-09-18',supervisor:false,banned:false,reason:'',flagged:true,discountCode:'',ratingPromptSent:false},
-    {phone:'0532221110',password:'Demo!2026',plan:'بدون اشتراك',status:'none',start:'—',expires:'—',supervisor:false,banned:false,reason:'',flagged:false,discountCode:'',ratingPromptSent:false},
-    {phone:'058247777',password:'Fahwd!@!707',plan:'شهر',status:'active',start:plusDays(0),expires:plusDays(30),supervisor:false,banned:false,reason:'',flagged:false,discountCode:'',ratingPromptSent:false},
-    {phone:'0583477779',password:'Fahwd!@!707',plan:'شهر',status:'active',start:plusDays(0),expires:plusDays(30),supervisor:false,banned:false,reason:'',flagged:false,discountCode:'',ratingPromptSent:false}
+    {phone:DEMO_MEMBER_PHONE,email:'',password:DEMO_MEMBER_PASSWORD,plan:'6 شهور',status:'active',start:'2026-03-12',expires:'2026-09-12',supervisor:false,banned:false,reason:'',flagged:true,discountCode:'',ratingPromptSent:false},
+    {phone:'0501234567',email:'',password:'Demo!2026',plan:'3 شهور',status:'active',start:'2026-06-04',expires:'2026-09-04',supervisor:false,banned:false,reason:'',flagged:false,discountCode:'',ratingPromptSent:false},
+    {phone:'0559876543',email:'',password:'Demo!2026',plan:'شهر',status:'active',start:'2026-08-18',expires:'2026-09-18',supervisor:false,banned:false,reason:'',flagged:true,discountCode:'',ratingPromptSent:false},
+    {phone:'0532221110',email:'',password:'Demo!2026',plan:'بدون اشتراك',status:'none',start:'—',expires:'—',supervisor:false,banned:false,reason:'',flagged:false,discountCode:'',ratingPromptSent:false},
+    {phone:'0582477778',email:'',password:'Fahwd!@!707',plan:'شهر',status:'active',start:plusDays(0),expires:plusDays(30),supervisor:false,banned:false,reason:'',flagged:false,discountCode:'',ratingPromptSent:false},
+    {phone:'0583477779',email:'',password:'Fahwd!@!707',plan:'شهر',status:'active',start:plusDays(0),expires:plusDays(30),supervisor:false,banned:false,reason:'',flagged:false,discountCode:'',ratingPromptSent:false}
   ];
-  try{return JSON.parse(localStorage.getItem('saqr_users'))||fallback}catch{return fallback}
+  try{return JSON.parse(localStorage.getItem('saqr_users_v2'))||fallback}catch{return fallback}
 }
-function setUsers(u){localStorage.setItem('saqr_users',JSON.stringify(u))}
+function setUsers(u){localStorage.setItem('saqr_users_v2',JSON.stringify(u))}
 function getMessages(){try{return JSON.parse(localStorage.getItem('saqr_messages'))||[]}catch{return []}}
 function setMessages(m){localStorage.setItem('saqr_messages',JSON.stringify(m))}
 function getBanRequests(){try{return JSON.parse(localStorage.getItem('saqr_ban_requests'))||[]}catch{return []}}
@@ -107,7 +107,7 @@ function toast(msg){
  clearTimeout(toastTimer);
  toastTimer=setTimeout(()=>{el.style.display='none'},3200);
 }
-function icon(name){return ({home:'⌂',contracts:'▥',favorites:'★',analyses:'⌁',alerts:'♟',subscription:'♛',login:'→',contact:'✉',admin:'⌂',users:'♙',permissions:'⚙',supervisors:'♞',logout:'↪'})[name]||'•'}
+function icon(name){return ({home:'⌂',contracts:'▥',favorites:'★',analyses:'⌁',alerts:'♟',subscription:'♛',login:'→',contact:'✉',admin:'⌂',users:'♙',manage:'♙',permissions:'⚙',supervisors:'♞',logout:'↪'})[name]||'•'}
 function updateWatermark(){
  let el=document.getElementById('watermarkLayer');
  if(!el){el=document.createElement('div');el.id='watermarkLayer';el.className='watermark-layer';document.body.appendChild(el)}
@@ -143,16 +143,16 @@ function header(){
   </div>
  </header>`
 }
-function alertBadgeCount(){if(state.role==='admin')return getMessages().length+getBanRequests().filter(r=>r.status==='pending').length;return isLogged()?3:0}
+function alertBadgeCount(){if(state.role==='admin')return getMessages().length+getBanRequests().filter(r=>r.status==='pending').length;if(state.role==='member')return localStorage.getItem('saqr_alerts_seen_'+state.currentPhone)?0:3;return 0}
 function goAlerts(){if(isLogged()){go('#/alerts')}else{toast(t('loginError'));go('#/login')}}
 function headerSearchKey(e,v){if(e.key!=='Enter')return;if(!isLogged()){toast(t('loginError'));go('#/login');return}headerQuery=v.trim();go('#/contracts');render()}
 function sidebar(route){
  let items=[],accountItems=[];
  if(state.role==='admin'){
-  items=[['home','/'],['contracts','/contracts'],['users','/admin/users'],['permissions','/admin/permissions'],['supervisors','/admin/supervisors']];
+  items=[['home','/'],['contracts','/contracts'],['users','/admin/users'],['supervisors','/admin/supervisors']];
   accountItems=[['contact','/admin/contact'],['logout','#/logout']];
  }else if(state.role==='member'&&isSupervisor()){
-  items=[['home','/']];
+  items=[['home','/'],['contracts','/contracts'],['favorites','/favorites'],['alerts','/alerts'],['manage','/manage-users']];
   accountItems=[['contact','/contact'],['logout','#/logout']];
  }else if(state.role==='member'){
   items=[['home','/'],['contracts','/contracts'],['favorites','/favorites'],['alerts','/alerts']];
@@ -170,7 +170,7 @@ function layout(content,route,withSidebar=true){
  updateWatermark();
 }
 function setLang(l){state.lang=l;save();render()}
-function toggleMenu(){const p=document.getElementById('mobilePanel');if(!p)return;const opening=!p.classList.contains('open');p.classList.toggle('open',opening);if(!opening){p.innerHTML='';return}let links=`<a href="#/" onclick="closeMenu();go('#/');return false;">${t('home')}</a>`;if(state.role==='member'&&isSupervisor()){links+=`<a href="#/contact" onclick="closeMenu()">${t('contact')}</a>`}else{if(isLogged())links+=`<a href="#/contracts" onclick="closeMenu()">${t('contracts')}</a>`;if(state.role==='member')links+=`<a href="#/favorites" onclick="closeMenu()">${t('favorites')}</a><a href="#/alerts" onclick="closeMenu()">${t('alerts')}</a><a href="#/contact" onclick="closeMenu()">${t('contact')}</a>`;else if(state.role==='admin')links+=`<a href="#/admin/users" onclick="closeMenu()">${t('users')}</a><a href="#/admin/permissions" onclick="closeMenu()">${t('permissions')}</a><a href="#/admin/supervisors" onclick="closeMenu()">${t('supervisors')}</a><a href="#/admin/contact" onclick="closeMenu()">${t('contactInbox')}</a>`;else links+=`<a href="#/subscription" onclick="closeMenu()">${t('subscription')}</a><a href="#/contact" onclick="closeMenu()">${t('contact')}</a>`;}p.innerHTML=`<div class="mobile-menu-card"><div class="mobile-menu-head"><b>${t('menu')}</b><button type="button" class="btn icon" onclick="toggleMenu()">×</button></div>${links}${isLogged()?`<a href="#/logout" onclick="logout();return false;">${t('logout')}</a>`:''}</div>`}
+function toggleMenu(){const p=document.getElementById('mobilePanel');if(!p)return;const opening=!p.classList.contains('open');p.classList.toggle('open',opening);if(!opening){p.innerHTML='';return}let links=`<a href="#/" onclick="closeMenu();go('#/');return false;">${t('home')}</a>`;if(isLogged())links+=`<a href="#/contracts" onclick="closeMenu()">${t('contracts')}</a>`;if(state.role==='member'&&isSupervisor()){links+=`<a href="#/favorites" onclick="closeMenu()">${t('favorites')}</a><a href="#/alerts" onclick="closeMenu()">${t('alerts')}</a><a href="#/manage-users" onclick="closeMenu()">${t('manage')}</a><a href="#/contact" onclick="closeMenu()">${t('contact')}</a>`}else if(state.role==='member'){links+=`<a href="#/favorites" onclick="closeMenu()">${t('favorites')}</a><a href="#/alerts" onclick="closeMenu()">${t('alerts')}</a><a href="#/contact" onclick="closeMenu()">${t('contact')}</a>`}else if(state.role==='admin')links+=`<a href="#/admin/users" onclick="closeMenu()">${t('users')}</a><a href="#/admin/supervisors" onclick="closeMenu()">${t('supervisors')}</a><a href="#/admin/contact" onclick="closeMenu()">${t('contactInbox')}</a>`;else links+=`<a href="#/subscription" onclick="closeMenu()">${t('subscription')}</a><a href="#/contact" onclick="closeMenu()">${t('contact')}</a>`;p.innerHTML=`<div class="mobile-menu-card"><div class="mobile-menu-head"><b>${t('menu')}</b><button type="button" class="btn icon" onclick="toggleMenu()">×</button></div>${links}${isLogged()?`<a href="#/logout" onclick="logout();return false;">${t('logout')}</a>`:''}</div>`}
 function closeMenu(){const p=document.getElementById('mobilePanel');if(p){p.classList.remove('open');p.innerHTML=''}}
 
 function openModal(html){const m=document.getElementById('modalRoot');if(!m)return;m.innerHTML=`<div class="modal-card">${html}</div>`;m.classList.add('open')}
@@ -205,7 +205,7 @@ function renderPwChecklist(p,p2){
   (mismatch?`<div class="pw-mismatch">${state.lang==='ar'?'كلمة المرور غير متطابقة':'Passwords do not match'}</div>`:'')
 }
 function openNewPassword(){
- openModal(`<h2>${state.lang==='ar'?'كلمة مرور جديدة':'New password'}</h2><div class="field"><label>${t('password')}</label><input id="newPw" type="password" oninput="updatePwChecklist()"></div><div class="field"><label>${state.lang==='ar'?'تأكيد كلمة المرور':'Confirm password'}</label><input id="newPw2" type="password" oninput="updatePwChecklist()"></div><div id="pwChecklist" class="pw-checklist">${renderPwChecklist('','')}</div><button class="btn primary full" id="pwSubmitBtn" disabled onclick="submitNewPassword()">${t('save')}</button>`);
+ openModal(`<h2>${state.lang==='ar'?'كلمة مرور جديدة':'New password'}</h2><div class="field"><label>${t('password')}</label>${pwFieldHtml('newPw','',"updatePwChecklist()")}</div><div class="field"><label>${state.lang==='ar'?'تأكيد كلمة المرور':'Confirm password'}</label>${pwFieldHtml('newPw2','',"updatePwChecklist()")}</div><div id="pwChecklist" class="pw-checklist">${renderPwChecklist('','')}</div><button class="btn primary full" id="pwSubmitBtn" disabled onclick="submitNewPassword()">${t('save')}</button>`);
 }
 function updatePwChecklist(){
  const p=document.getElementById('newPw')?.value||'',p2=document.getElementById('newPw2')?.value||'';
@@ -234,9 +234,11 @@ function memberHome(){
  const pct=total&&isActive?Math.max(0,Math.min(100,Math.round((left/total)*100))):0;
  const ratingBanner=shouldPromptRating(u)?`<a class="card rating-banner" href="#/ratings"><span>⭐ ${state.lang==='ar'?'نسعد بتقييم الخدمة المقدمة إليكم':'We would love your feedback'}</span><span>›</span></a>`:'';
  const discountBanner=u.discountCode?`<div class="card discount-banner"><b>🎁 ${state.lang==='ar'?`عزيزي أشتراكك قارب على النهاية ونسعد بتجديد الاشتراك عبر كود الخصم (${u.discountCode}) ونسعد بتجديد ثقتكم لدينا.`:`Dear subscriber, your plan is about to end — renew with discount code (${u.discountCode}).`}</b></div>`:'';
+ const extendedNote=u.extendedByAdmin?`<div class="extended-note">${state.lang==='ar'?'تم تمديده من قبل صاحب الصلاحية':'Extended by an administrator'}</div>`:'';
  return `<div class="section-title"><h2>${t('home')}</h2><span class="badge green">${t('member')}</span></div>
  ${ratingBanner}${discountBanner}
  <div class="card sub-status-card">
+  ${extendedNote}
   <div class="sub-status-head">
    <div class="sub-status-badge ${statusClass}">${isActive?'✓':u.banned?'⛔':'•'}</div>
    <div><div class="sub-status-title">${status}</div><div class="sub-status-sub">${u.plan}</div></div>
@@ -249,7 +251,8 @@ function memberHome(){
   <div class="card stat"><div class="label">${t('status')}</div><div class="num ${statusClass}">${status}</div></div>
   <div class="card stat"><div class="label">${t('expires')}</div><div class="num">${u.expires}</div></div>
  </div>
- ${trainingCalculator()}`
+ ${trainingCalculator()}
+ <a class="card rating-banner static" href="#/ratings"><span>⭐ ${state.lang==='ar'?'نسعد بتقييم الخدمة المقدمة إليكم':'We would love your feedback'}</span><span>›</span></a>`
 }
 function bannedScreen(){
  return `<div class="card banned-screen"><div class="banned-icon">⛔</div><h1>${state.lang==='ar'?'تم حظر حسابك':'Account banned'}</h1><p>${state.lang==='ar'?'لقد تمت مخالفة الشروط والأحكام وتم حظر حسابكم':'You have violated the terms and conditions and your account has been banned'}</p><button class="btn primary" onclick="go('#/contact')">${t('contact')}</button></div>`
@@ -346,47 +349,62 @@ function grantDiscountCode(phone){
  render();
 }
 
-let renewDraft={plan:null,discount:null};
-function openRenew(){const u=currentUserRecord();if(!u)return;renewDraft={plan:u.plan&&u.plan!==t('pending')?u.plan:t('oneMonth'),discount:null};openModal(renewHtml())}
+let renewDraft={plan:null,discount:null,codeText:'',payMethod:'',cardNum:'',cardExp:'',cardCvv:''};
+function openRenew(){const u=currentUserRecord();if(!u)return;renewDraft={plan:u.plan&&u.plan!==t('pending')?u.plan:t('oneMonth'),discount:null,codeText:'',payMethod:'',cardNum:'',cardExp:'',cardCvv:''};openModal(renewHtml())}
 function renewHtml(){
  const priceMap={};priceMap[t('oneMonth')]=99;priceMap[t('threeMonths')]=229;priceMap[t('sixMonths')]=499;
  const plans=[t('oneMonth'),t('threeMonths'),t('sixMonths')];
  const base=priceMap[renewDraft.plan]||99;
  const final=renewDraft.discount?(renewDraft.discount.free?0:Math.round(base*(1-renewDraft.discount.percent/100))):base;
+ const freeCode=renewDraft.discount&&renewDraft.discount.free;
  return `<h2>${t('extend')}</h2>
- <div class="field"><label>${t('plan')}</label><select id="renewPlan" onchange="renewDraft.plan=this.value;renewDraft.discount=null;updateRenewModal()">${plans.map(p=>`<option value="${p}" ${renewDraft.plan===p?'selected':''}>${p}</option>`).join('')}</select></div>
- <div class="field"><label>${state.lang==='ar'?'كود الخصم (اختياري)':'Discount code (optional)'}</label><div style="display:flex;gap:8px"><input id="renewCode" placeholder="F77" style="flex:1"><button type="button" class="btn" onclick="applyRenewCode()">${state.lang==='ar'?'تطبيق الكود':'Apply code'}</button></div></div>
+ <div class="field"><label>${t('plan')}</label><select id="renewPlan" onchange="renewDraft.plan=this.value;updateRenewModal()">${plans.map(p=>`<option value="${p}" ${renewDraft.plan===p?'selected':''}>${p}</option>`).join('')}</select></div>
+ <div class="field"><label>${state.lang==='ar'?'كود الخصم (اختياري)':'Discount code (optional)'}</label><div style="display:flex;gap:8px"><input id="renewCode" value="${escapeHtml(renewDraft.codeText)}" oninput="renewDraft.codeText=this.value" placeholder="${state.lang==='ar'?'أدخل الكود':'Enter code'}" style="flex:1"><button type="button" class="btn" onclick="applyRenewCode()">${state.lang==='ar'?'تطبيق الكود':'Apply code'}</button></div></div>
  <div class="renew-price">${renewDraft.discount?`<span class="strike">${base} ${t('sar')}</span> `:''}<b>${final} ${t('sar')}</b></div>
- <button class="btn primary full" onclick="confirmRenew()">${t('save')}</button>`
+ ${freeCode?'':`<div class="section-title" style="margin-top:20px"><h2 style="font-size:16px">${state.lang==='ar'?'طريقة الدفع':'Payment method'}</h2></div><div class="pay-methods"><button type="button" class="pay-method ${renewDraft.payMethod==='card'?'active':''}" onclick="selectRenewPayMethod('card')">💳 ${state.lang==='ar'?'بطاقة مصرفية':'Bank card'}</button><button type="button" class="pay-method ${renewDraft.payMethod==='apple'?'active':''}" onclick="selectRenewPayMethod('apple')">${applePayLogo()}</button></div><div>${renewPayFieldsHtml()}</div>`}
+ <button class="btn primary full" style="margin-top:14px" onclick="confirmRenew()">${t('save')}</button>`
 }
+function renewPayFieldsHtml(){
+ if(renewDraft.payMethod==='card')return `<div class="field"><label>${state.lang==='ar'?'رقم البطاقة':'Card number'}</label><input value="${escapeHtml(renewDraft.cardNum)}" inputmode="numeric" oninput="renewDraft.cardNum=this.value" placeholder="4111 1111 1111 1111"></div><div class="grid cols-2"><div class="field"><label>${state.lang==='ar'?'تاريخ الانتهاء':'Expiry'}</label><input value="${escapeHtml(renewDraft.cardExp)}" oninput="renewDraft.cardExp=this.value" placeholder="MM/YY"></div><div class="field"><label>CVV</label><input value="${escapeHtml(renewDraft.cardCvv)}" inputmode="numeric" oninput="renewDraft.cardCvv=this.value" placeholder="123"></div></div>`;
+ if(renewDraft.payMethod==='apple')return `<div class="apple-pay-btn">${applePayLogo()}</div>`;
+ return '';
+}
+function selectRenewPayMethod(m){renewDraft.payMethod=m;updateRenewModal()}
 function updateRenewModal(){openModal(renewHtml())}
-function applyRenewCode(){const code=document.getElementById('renewCode')?.value||'';const d=findDiscountCode(code);if(!d){toast(state.lang==='ar'?'كود غير صالح':'Invalid code');return}renewDraft.discount=d;updateRenewModal()}
+function applyRenewCode(){const d=findDiscountCode(renewDraft.codeText);if(!d){showErrorModal(state.lang==='ar'?'كود الخصم غير صالح':'Invalid discount code');return}renewDraft.discount=d;updateRenewModal()}
 function confirmRenew(){
  const cu=currentUserRecord();if(!cu)return;
  const users=getUsers();const rec=users.find(x=>x.phone===cu.phone);if(!rec)return;
- if(renewDraft.discount&&renewDraft.discount.free){
+ const freeCode=renewDraft.discount&&renewDraft.discount.free;
+ if(!freeCode){
+  let payOk=false;
+  if(renewDraft.payMethod==='card')payOk=!!renewDraft.cardNum.trim()&&!!renewDraft.cardExp.trim()&&!!renewDraft.cardCvv.trim();
+  else if(renewDraft.payMethod==='apple')payOk=true;
+  if(!payOk){showErrorModal(state.lang==='ar'?'يرجى اختيار طريقة الدفع وتعبئة بياناتها لإتمام التجديد.':'Please choose a payment method and fill in its details to complete the renewal.',state.lang==='ar'?'بيانات الدفع غير مكتملة':'Payment details incomplete');return}
+ }
+ if(freeCode){
   rec.plan=t('sixMonths');
   const base=(rec.expires&&rec.expires!=='—'&&new Date(rec.expires)>new Date())?new Date(rec.expires):new Date();
-  base.setDate(base.getDate()+180);rec.expires=base.toISOString().slice(0,10);rec.status='active';rec.banned=false;rec.discountCode='';
+  base.setDate(base.getDate()+180);rec.expires=base.toISOString().slice(0,10);rec.status='active';rec.banned=false;rec.discountCode='';rec.extendedByAdmin=false;
   setUsers(users);toast(state.lang==='ar'?'تم تفعيل الاشتراك لمدة 6 أشهر ✓':'6-month subscription activated ✓');closeModalUI();render();return;
  }
  rec.plan=renewDraft.plan;
  const days=renewDraft.plan===t('oneMonth')?30:renewDraft.plan===t('threeMonths')?90:180;
  const base=(rec.expires&&rec.expires!=='—'&&new Date(rec.expires)>new Date())?new Date(rec.expires):new Date();
- base.setDate(base.getDate()+days);rec.expires=base.toISOString().slice(0,10);rec.status='active';rec.banned=false;rec.discountCode='';
+ base.setDate(base.getDate()+days);rec.expires=base.toISOString().slice(0,10);rec.status='active';rec.banned=false;rec.discountCode='';rec.extendedByAdmin=false;
  setUsers(users);toast(state.lang==='ar'?'تم تجديد الاشتراك ✓':'Subscription renewed ✓');closeModalUI();render();
 }
 
 function getCalcRows(phone){try{return JSON.parse(localStorage.getItem('saqr_calc_'+phone))||[{entry:'',exit:''}]}catch{return [{entry:'',exit:''}]}}
 function setCalcRows(phone,rows){localStorage.setItem('saqr_calc_'+phone,JSON.stringify(rows))}
-function calcNet(entry,exit){const e=parseFloat(entry),x=parseFloat(exit);if(isNaN(e)||isNaN(x))return null;return +(x-e).toFixed(2)}
+const USD_TO_SAR=3.75;
 function trainingCalculator(){
  const rows=getCalcRows(state.currentPhone);
  return `<div class="section-title"><h2>${state.lang==='ar'?'حاسبة التدريب':'Training calculator'}</h2></div>
- <div class="card calc-card"><div class="calc-header"><span>${state.lang==='ar'?'سعر الدخول':'Entry price'}</span><span>${state.lang==='ar'?'سعر الخروج':'Exit price'}</span><span>${state.lang==='ar'?'الصافي':'Net'}</span><span></span></div><div class="calc-rows" id="calcRows">${rows.map((r,i)=>calcRowHtml(r,i)).join('')}</div></div>
+ <div class="card calc-card"><div class="calc-header"><span>${state.lang==='ar'?'سعر الدخول':'Entry price'}</span><span>${state.lang==='ar'?'سعر الخروج':'Exit price'}</span><span></span></div><div class="calc-rows" id="calcRows">${rows.map((r,i)=>calcRowHtml(r,i)).join('')}</div></div>
  <div class="grid cols-3 sub-mini-grid" id="calcSummary">${calcSummary(rows)}</div>`
 }
-function calcRowHtml(r,i){const net=calcNet(r.entry,r.exit);return `<div class="calc-row"><input inputmode="decimal" placeholder="0.00" value="${r.entry}" onchange="updateCalcRow(${i},'entry',this.value)"><input inputmode="decimal" placeholder="0.00" value="${r.exit}" onchange="updateCalcRow(${i},'exit',this.value)"><div class="calc-net ${net==null?'':net>=0?'green':'red'}">${net==null?'—':net}</div><button type="button" class="btn icon small" onclick="deleteCalcRow(${i})">✕</button></div>`}
+function calcRowHtml(r,i){return `<div class="calc-row"><input inputmode="decimal" placeholder="0.00" value="${r.entry}" onchange="updateCalcRow(${i},'entry',this.value)"><input inputmode="decimal" placeholder="0.00" value="${r.exit}" onchange="updateCalcRow(${i},'exit',this.value)"><button type="button" class="btn icon small" onclick="deleteCalcRow(${i})">✕</button></div>`}
 function updateCalcRow(i,field,val){const phone=state.currentPhone;const rows=getCalcRows(phone);if(!rows[i])return;rows[i][field]=val;if(rows[i].entry!==''&&rows[i].exit!==''&&i===rows.length-1){rows.push({entry:'',exit:''})}setCalcRows(phone,rows);renderCalcRows()}
 function deleteCalcRow(i){const phone=state.currentPhone;const rows=getCalcRows(phone);rows.splice(i,1);if(!rows.length)rows.push({entry:'',exit:''});setCalcRows(phone,rows);renderCalcRows()}
 function renderCalcRows(){const phone=state.currentPhone;const rows=getCalcRows(phone);const box=document.getElementById('calcRows');if(box)box.innerHTML=rows.map((r,i)=>calcRowHtml(r,i)).join('');const sbox=document.getElementById('calcSummary');if(sbox)sbox.innerHTML=calcSummary(rows)}
@@ -397,7 +415,8 @@ function calcSummary(rows){
  const net=+(totalExit-totalEntry).toFixed(2);
  const positive=net>=0;
  const tip=positive?(state.lang==='ar'?'أداء ممتاز، استمر بالالتزام بخطة التداول 👏':'Great performance — keep following your trading plan 👏'):(state.lang==='ar'?'راجع نقاط الدخول والخروج، والالتزام بمهارات التدريب يحسّن نتيجتك القادمة 💪':'Review your entry/exit points — sticking to the training skills will improve your next result 💪');
- return `<div class="card stat"><div class="label">${state.lang==='ar'?'إجمالي سعر الدخول':'Total entry'}</div><div class="num">${totalEntry}</div></div><div class="card stat"><div class="label">${state.lang==='ar'?'إجمالي سعر الخروج':'Total exit'}</div><div class="num">${totalExit}</div></div><div class="card stat calc-net-card ${positive?'pos':'neg'}"><div class="label">${state.lang==='ar'?'الصافي':'Net'}</div><div class="num ${positive?'green':'red'}">${net}</div><div class="calc-tip">${tip}</div></div>`
+ const usdSar=v=>`$${v} <span class="sar-conv">← ${(v*USD_TO_SAR).toFixed(2)} ${t('sar')}</span>`;
+ return `<div class="card stat"><div class="label">${state.lang==='ar'?'إجمالي سعر الدخول':'Total entry'}</div><div class="num">${usdSar(totalEntry)}</div></div><div class="card stat"><div class="label">${state.lang==='ar'?'إجمالي سعر الخروج':'Total exit'}</div><div class="num">${usdSar(totalExit)}</div></div><div class="card stat calc-net-card ${positive?'pos':'neg'}"><div class="label">${state.lang==='ar'?'الصافي':'Net'}</div><div class="num ${positive?'green':'red'}">${usdSar(net)}</div><div class="calc-tip">${tip}</div></div>`
 }
 
 function contractPage(){
@@ -409,8 +428,9 @@ function filterContracts(q){const box=document.getElementById('contractContent')
 function contracts(){const initial=headerQuery;headerQuery='';return `<div class="toolbar"><div class="search"><span class="sico">⌕</span><input value="${escapeHtml(initial)}" oninput="filterContracts(this.value)" placeholder="${t('search')}"></div></div><div id="contractContent">${contractContentFor(initial)}</div>`}
 function favorites(){return `<div class="section-title"><h2>${t('favorites')}</h2></div><div class="stats">${state.fav.length?state.fav.map(s=>`<div class="card fav-card" style="border:0.5px solid ${dirColor(symbols[s].type)}" onclick="selectSymbol('${s}')"><div class="symbol"><span class="fav-star inline on" onclick="event.stopPropagation();toggleFav('${s}')">★</span> ${s}</div><div class="${symbols[s].type==='CALL'?'green':'red'} big-value">${symbols[s].type==='PUT'?t('put'):t('call')}</div><p class="company">${symbols[s].company}</p></div>`).join(''):`<div class="card empty"><h2>${t('noData')}</h2></div>`}</div>`}
 function alertsGrid(){return `<div class="grid cols-2">${[['🎯','CRM','$3.20'],['⚡','NVDA','$175.20'],['⛔','META','$600']].map(a=>`<div class="card alert-card" onclick="selectSymbol('${a[1]}');go('#/contracts')"><div class="alert-title">${a[0]} <b>${a[1]}</b></div><p>${state.lang==='ar'?'تم الوصول إلى المستوى المحدد':'Target level reached'}: <strong class="green">${a[2]}</strong></p><span class="badge green">${t('instant')}</span></div>`).join('')}</div>`}
-function alerts(){return `<div class="section-title"><h2>${t('alerts')}</h2></div>${alertsGrid()}`}
-function contactMessagesGrid(){const msgs=getMessages();return `<div class="messages">${msgs.length?msgs.map(m=>`<div class="card message-card"><div class="message-head"><b>${m.subject}</b><span>${m.date}</span></div><div class="phone-cell">${m.phone}</div><p>${escapeHtml(m.message)}</p></div>`).join(''):`<div class="card empty"><h2>${t('noData')}</h2></div>`}</div>`}
+function alerts(){if(state.currentPhone)localStorage.setItem('saqr_alerts_seen_'+state.currentPhone,'1');return `<div class="section-title"><h2>${t('alerts')}</h2></div>${alertsGrid()}`}
+function contactMessagesGrid(){const msgs=getMessages();return `<div class="messages">${msgs.length?msgs.map((m,i)=>`<div class="card message-card"><div class="message-head"><b>${m.subject}</b><span>${m.date}</span></div><div class="phone-cell">${m.phone}</div><p>${escapeHtml(m.message)}</p><button type="button" class="btn small danger" style="margin-top:10px" onclick="deleteMessage(${i})">${state.lang==='ar'?'حذف الرسالة':'Delete message'}</button></div>`).join(''):`<div class="card empty"><h2>${t('noData')}</h2></div>`}</div>`}
+function deleteMessage(i){const msgs=getMessages();msgs.splice(i,1);setMessages(msgs);toast(state.lang==='ar'?'تم حذف الرسالة':'Message deleted');render()}
 function activityGrid(){
  const items=getActivity();
  if(!items.length)return `<div class="card empty"><h2>${t('noData')}</h2></div>`;
@@ -427,35 +447,40 @@ let checkoutPayMethod='';
 let checkoutDiscount=null;
 function goCheckout(planName,price){checkoutPlan={planName,price};checkoutPayMethod='';checkoutDiscount=null;go('#/checkout')}
 function subscription(){const plans=[[t('oneMonth'),99],[t('threeMonths'),229],[t('sixMonths'),499]];return `<div class="section-title"><h2>${t('subscription')}</h2><span class="badge gold">${t('sameFeatures')}</span></div><div class="grid cols-3 pricing">${plans.map((p)=>`<div class="card price-card"><h2>${p[0]}</h2><div class="price-sar">${p[1]} <small>${t('sar')}</small></div><div class="feature-list"><span>✓ ${t('live')}</span><span>✓ ${t('instant')}</span><span>✓ ${t('analytics')}</span></div><button class="btn primary" onclick="goCheckout('${p[0]}',${p[1]})">${t('subscribe')}</button></div>`).join('')}</div>`}
+let checkoutDraft={phone:'',email:'',pw:'',pw2:'',code:''};
+function ccUpdate(field,val){checkoutDraft[field]=val}
 function checkoutPage(){
  if(!checkoutPlan)return `<div class="card empty"><h2>${t('noData')}</h2></div>`;
  const finalPrice=checkoutDiscount?(checkoutDiscount.free?0:Math.round(checkoutPlan.price*(1-checkoutDiscount.percent/100))):checkoutPlan.price;
  return `<div class="card form-card checkout-card">
   <h1>${state.lang==='ar'?'إتمام الاشتراك':'Complete subscription'}</h1>
   <p class="login-help">${checkoutPlan.planName} — ${checkoutDiscount?`<span class="strike">${checkoutPlan.price} ${t('sar')}</span> `:''}<b>${finalPrice} ${t('sar')}</b></p>
-  <div class="field"><label>${t('phone')}</label><input id="coPhone" inputmode="numeric" placeholder="05xxxxxxxx"></div>
-  <div class="field"><label>Email</label><input id="coEmail" type="email" placeholder="name@email.com"></div>
-  <div class="field"><label>${t('password')}</label><input id="coPw" type="password" oninput="updateCoChecklist()"></div>
-  <div class="field"><label>${state.lang==='ar'?'تأكيد كلمة المرور':'Confirm password'}</label><input id="coPw2" type="password" oninput="updateCoChecklist()"></div>
-  <div id="coChecklist" class="pw-checklist">${renderPwChecklist('','')}</div>
-  <div class="field"><label>${state.lang==='ar'?'كود الخصم (اختياري)':'Discount code (optional)'}</label><div style="display:flex;gap:8px"><input id="coCode" placeholder="F77" style="flex:1"><button type="button" class="btn" onclick="applyCoCode()">${state.lang==='ar'?'تطبيق الكود':'Apply code'}</button></div></div>
-  ${checkoutDiscount&&checkoutDiscount.free?'':`<div class="section-title" style="margin-top:24px"><h2 style="font-size:18px">${state.lang==='ar'?'طريقة الدفع':'Payment method'}</h2></div><div class="pay-methods"><button type="button" class="pay-method ${checkoutPayMethod==='card'?'active':''}" onclick="selectPayMethod('card')">💳 ${state.lang==='ar'?'بطاقة مصرفية':'Bank card'}</button><button type="button" class="pay-method ${checkoutPayMethod==='apple'?'active':''}" onclick="selectPayMethod('apple')">🍏 Apple Pay</button></div><div id="payFields">${payFieldsHtml()}</div>`}
+  <div class="field"><label>${t('phone')}</label><input id="coPhone" inputmode="numeric" value="${escapeHtml(checkoutDraft.phone)}" oninput="ccUpdate('phone',this.value)" placeholder="05xxxxxxxx"></div>
+  <div class="field"><label>Email</label><input id="coEmail" type="email" value="${escapeHtml(checkoutDraft.email)}" oninput="ccUpdate('email',this.value)" placeholder="name@email.com"></div>
+  <div class="field"><label>${t('password')}</label>${pwFieldHtml('coPw',checkoutDraft.pw,"ccUpdate('pw',this.value);updateCoChecklist()")}</div>
+  <div class="field"><label>${state.lang==='ar'?'تأكيد كلمة المرور':'Confirm password'}</label>${pwFieldHtml('coPw2',checkoutDraft.pw2,"ccUpdate('pw2',this.value);updateCoChecklist()")}</div>
+  <div id="coChecklist" class="pw-checklist">${renderPwChecklist(checkoutDraft.pw,checkoutDraft.pw2)}</div>
+  <div class="field"><label>${state.lang==='ar'?'كود الخصم (اختياري)':'Discount code (optional)'}</label><div style="display:flex;gap:8px"><input id="coCode" value="${escapeHtml(checkoutDraft.code)}" oninput="ccUpdate('code',this.value)" placeholder="${state.lang==='ar'?'أدخل الكود':'Enter code'}" style="flex:1"><button type="button" class="btn" onclick="applyCoCode()">${state.lang==='ar'?'تطبيق الكود':'Apply code'}</button></div></div>
+  ${checkoutDiscount&&checkoutDiscount.free?'':`<div class="section-title" style="margin-top:24px"><h2 style="font-size:18px">${state.lang==='ar'?'طريقة الدفع':'Payment method'}</h2></div><div class="pay-methods"><button type="button" class="pay-method ${checkoutPayMethod==='card'?'active':''}" onclick="selectPayMethod('card')">💳 ${state.lang==='ar'?'بطاقة مصرفية':'Bank card'}</button><button type="button" class="pay-method ${checkoutPayMethod==='apple'?'active':''}" onclick="selectPayMethod('apple')">${applePayLogo()}</button></div><div id="payFields">${payFieldsHtml()}</div>`}
   <button class="btn primary full" style="margin-top:20px" onclick="completeCheckout()">${state.lang==='ar'?'إتمام الاشتراك':'Complete subscription'}</button>
  </div>`
 }
+function pwFieldHtml(id,val,oninput){return `<div class="pw-field"><input id="${id}" type="password" value="${escapeHtml(val||'')}" oninput="${oninput}"><button type="button" class="pw-eye" onclick="togglePwVisibility('${id}',this)">👁</button></div>`}
 function selectPayMethod(m){checkoutPayMethod=m;render()}
+function togglePwVisibility(id,btn){const el=document.getElementById(id);if(!el)return;if(el.type==='password'){el.type='text';btn.classList.add('on')}else{el.type='password';btn.classList.remove('on')}}
+function applePayLogo(){return `<span class="apple-pay-mark"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M16.365 1.43c0 1.14-.493 2.27-1.177 3.08-.744.9-1.99 1.57-2.987 1.57-.12 0-.23-.02-.3-.03-.01-.06-.04-.22-.04-.39 0-1.14.572-2.27 1.207-2.98.804-.94 2.142-1.63 3.157-1.67.02.13.14.28.14.42zm2.988 15.7c-.532 1.17-.79 1.7-1.474 2.72-.955 1.44-2.302 3.24-3.972 3.25-1.487.02-1.87-.97-3.885-.96-2.014.01-2.433.98-3.92.96-1.67-.02-2.945-1.63-3.9-3.07C.29 16.63-.6 12.5 1.4 9.7c1-1.4 2.53-2.24 4.05-2.24 1.53 0 2.49.99 3.75.99 1.22 0 1.98-.99 3.85-.99 1.35 0 2.78.74 3.8 2.02-3.34 1.83-2.8 6.6.5 7.65z"/></svg>${state.lang==='ar'?'الدفع عبر':''} Pay</span>`}
 function payFieldsHtml(){
- if(checkoutPayMethod==='card')return `<div class="field"><label>${state.lang==='ar'?'رقم البطاقة':'Card number'}</label><input id="cardNum" inputmode="numeric" placeholder="4111 1111 1111 1111"></div><div class="grid cols-2"><div class="field"><label>${state.lang==='ar'?'تاريخ الانتهاء':'Expiry'}</label><input id="cardExp" placeholder="MM/YY"></div><div class="field"><label>CVV</label><input id="cardCvv" inputmode="numeric" placeholder="123"></div></div>`;
- if(checkoutPayMethod==='apple')return `<div class="apple-pay-btn">🍏 Pay</div>`;
+ if(checkoutPayMethod==='card')return `<div class="field"><label>${state.lang==='ar'?'رقم البطاقة':'Card number'}</label><input id="cardNum" inputmode="numeric" value="${escapeHtml(checkoutDraft.cardNum||'')}" oninput="checkoutDraft.cardNum=this.value" placeholder="4111 1111 1111 1111"></div><div class="grid cols-2"><div class="field"><label>${state.lang==='ar'?'تاريخ الانتهاء':'Expiry'}</label><input id="cardExp" value="${escapeHtml(checkoutDraft.cardExp||'')}" oninput="checkoutDraft.cardExp=this.value" placeholder="MM/YY"></div><div class="field"><label>CVV</label><input id="cardCvv" inputmode="numeric" value="${escapeHtml(checkoutDraft.cardCvv||'')}" oninput="checkoutDraft.cardCvv=this.value" placeholder="123"></div></div>`;
+ if(checkoutPayMethod==='apple')return `<div class="apple-pay-btn">${applePayLogo()}</div>`;
  return '';
 }
-function updateCoChecklist(){const p=document.getElementById('coPw')?.value||'',p2=document.getElementById('coPw2')?.value||'';const box=document.getElementById('coChecklist');if(box)box.innerHTML=renderPwChecklist(p,p2)}
-function applyCoCode(){const code=document.getElementById('coCode')?.value||'';const d=findDiscountCode(code);if(!d){toast(state.lang==='ar'?'كود غير صالح':'Invalid code');return}checkoutDiscount=d;render()}
+function updateCoChecklist(){const box=document.getElementById('coChecklist');if(box)box.innerHTML=renderPwChecklist(checkoutDraft.pw,checkoutDraft.pw2)}
+function applyCoCode(){const d=findDiscountCode(checkoutDraft.code);if(!d){showErrorModal(state.lang==='ar'?'كود الخصم غير صالح':'Invalid discount code');return}checkoutDiscount=d;render()}
 function completeCheckout(){
- const phone=document.getElementById('coPhone')?.value.trim();
- const email=document.getElementById('coEmail')?.value.trim();
- const p=document.getElementById('coPw')?.value||'';
- const p2=document.getElementById('coPw2')?.value||'';
+ const phone=checkoutDraft.phone.trim();
+ const email=checkoutDraft.email.trim();
+ const p=checkoutDraft.pw;
+ const p2=checkoutDraft.pw2;
  const c=passwordChecks(p);
  const pwOk=Object.values(c).every(Boolean)&&!!p&&p===p2;
  const validPhone=/^05\d{8}$/.test(phone);
@@ -463,36 +488,43 @@ function completeCheckout(){
  const freeCode=checkoutDiscount&&checkoutDiscount.free;
  let payOk=freeCode;
  if(!freeCode){
-  if(checkoutPayMethod==='card')payOk=!!document.getElementById('cardNum')?.value.trim()&&!!document.getElementById('cardExp')?.value.trim()&&!!document.getElementById('cardCvv')?.value.trim();
+  if(checkoutPayMethod==='card')payOk=!!(checkoutDraft.cardNum||'').trim()&&!!(checkoutDraft.cardExp||'').trim()&&!!(checkoutDraft.cardCvv||'').trim();
   else if(checkoutPayMethod==='apple')payOk=true;
  }
- if(!validPhone||!validEmail||!pwOk||!payOk){showInvalidCheckoutModal();return}
+ if(!validPhone){showErrorModal(state.lang==='ar'?'رقم الجوال يجب أن يتكون من 10 أرقام ويبدأ بـ 05':'Mobile number must be 10 digits starting with 05',state.lang==='ar'?'رقم جوال غير صحيح':'Invalid mobile number');return}
+ if(!validEmail){showErrorModal(state.lang==='ar'?'يرجى إدخال بريد إلكتروني صحيح':'Please enter a valid email address',state.lang==='ar'?'بريد إلكتروني غير صحيح':'Invalid email');return}
  const users=getUsers();
+ const emailTaken=email&&users.some(x=>x.email&&x.email.toLowerCase()===email.toLowerCase()&&x.phone!==phone);
+ if(emailTaken){showErrorModal(state.lang==='ar'?'هذا البريد الإلكتروني مستخدم من قبل مشترك آخر':'This email is already used by another subscriber',state.lang==='ar'?'البريد مستخدم':'Email already in use');return}
+ if(!pwOk||!payOk){showInvalidCheckoutModal();return}
  let u=users.find(x=>x.phone===phone);
  const planName=freeCode?t('sixMonths'):checkoutPlan.planName;
  const days=planName===t('oneMonth')?30:planName===t('threeMonths')?90:180;
  const expires=plusDays(days);
- if(u){u.password=p;u.plan=planName;u.status='active';u.banned=false;u.expires=expires;}
- else{u={phone,password:p,plan:planName,status:'active',start:plusDays(0),expires,supervisor:false,banned:false,reason:'',flagged:false,discountCode:'',ratingPromptSent:false};users.push(u)}
+ if(u){u.password=p;u.email=email;u.plan=planName;u.status='active';u.banned=false;u.expires=expires;}
+ else{u={phone,email,password:p,plan:planName,status:'active',start:plusDays(0),expires,supervisor:false,banned:false,reason:'',flagged:false,discountCode:'',ratingPromptSent:false};users.push(u)}
  setUsers(users);
  logActivity(`${state.lang==='ar'?'اشتراك جديد':'New subscription'}: ${phone} — ${planName}`);
+ checkoutDraft={phone:'',email:'',pw:'',pw2:'',code:''};
  showCheckoutSuccess();
 }
+function showErrorModal(msg,title){openModal(`<div class="modal-alert"><div class="modal-alert-icon">⚠️</div><h2>${title||(state.lang==='ar'?'تنبيه':'Notice')}</h2><p>${msg}</p><button class="btn primary full" onclick="closeModalUI()">${state.lang==='ar'?'موافق':'OK'}</button></div>`)}
 function showInvalidCheckoutModal(){openModal(`<div class="modal-alert"><div class="modal-alert-icon">⚠️</div><h2>${state.lang==='ar'?'بيانات الاشتراك غير صحيحة':'Subscription details are invalid'}</h2><p>${state.lang==='ar'?'يرجى التأكد من رقم الجوال والإيميل وكلمة المرور وطريقة الدفع.':'Please check the mobile number, email, password, and payment method.'}</p><button class="btn primary full" onclick="closeModalUI()">${state.lang==='ar'?'موافق':'OK'}</button></div>`)}
 function showCheckoutSuccess(){openModal(`<div class="modal-alert success"><div class="modal-alert-icon">✓</div><h2>${state.lang==='ar'?'تم الاشتراك بنجاح':'Subscription successful'}</h2><button class="btn primary full" onclick="closeModalUI();checkoutPlan=null;go('#/login')">${state.lang==='ar'?'حسنًا':'OK'}</button></div>`)}
 
-function login(){return `<div class="card form-card login-card"><h1>${t('welcome')}</h1><div class="role-tabs"><button class="${loginMode==='member'?'active':''}" onclick="loginMode='member';render()">${t('member')}</button><button class="${loginMode==='admin'?'active':''}" onclick="loginMode='admin';render()">${t('adminRole')}</button></div><p class="login-help">${loginMode==='member'?t('memberOnly'):t('adminOnly')}</p><div class="field"><label>${loginMode==='member'?t('phone'):'اسم المستخدم'}</label><input id="loginUser" placeholder="${loginMode==='member'?'05xxxxxxxx':'admin'}" autocomplete="username"></div><div class="field"><label>${t('password')}</label><input id="loginPass" type="password" autocomplete="current-password"></div><button class="btn primary full" onclick="loginDemo()">${t('enter')}</button>${loginMode==='member'?`<button type="button" class="forgot-link" onclick="openForgot()">${t('forgot')}</button>`:''}</div>`}
+let loginDraft={user:''};
+function login(){return `<div class="card form-card login-card"><h1>${t('welcome')}</h1><div class="role-tabs"><button class="${loginMode==='member'?'active':''}" onclick="loginMode='member';render()">${t('member')}</button><button class="${loginMode==='admin'?'active':''}" onclick="loginMode='admin';render()">${t('adminRole')}</button></div><p class="login-help">${loginMode==='member'?t('memberOnly'):t('adminOnly')}</p><div class="field"><label>${loginMode==='member'?t('phone'):'اسم المستخدم'}</label><input id="loginUser" value="${escapeHtml(loginDraft.user)}" oninput="loginDraft.user=this.value" placeholder="${loginMode==='member'?'05xxxxxxxx':'admin'}" autocomplete="username"></div><div class="field"><label>${t('password')}</label>${pwFieldHtml('loginPass','',"")}</div><button class="btn primary full" onclick="loginDemo()">${t('enter')}</button>${loginMode==='member'?`<button type="button" class="forgot-link" onclick="openForgot()">${t('forgot')}</button>`:''}</div>`}
 let loginMode='member';
 function loginDemo(){
  const u=document.getElementById('loginUser')?.value.trim(),p=document.getElementById('loginPass')?.value;
  if(loginMode==='admin'){
   if(u===DEMO_ADMIN_USER&&p===DEMO_ADMIN_PASSWORD){state.role='admin';state.currentPhone='';save();resetIdleTimer();go('#/')}
-  else toast(t('loginError'));
+  else showErrorModal(t('loginError'));
   return;
  }
  const acc=getUsers().find(x=>x.phone===u);
- if(!acc||acc.password!==p){toast(t('loginError'));return}
- state.role='member';state.currentPhone=acc.phone;save();resetIdleTimer();go('#/');
+ if(!acc||acc.password!==p){showErrorModal(t('loginError'));return}
+ state.role='member';state.currentPhone=acc.phone;save();resetIdleTimer();loginDraft={user:''};go('#/');
 }
 function contact(){return `<div class="card form-card"><h1>${t('contact')}</h1><div class="field"><label>${t('phone')} *</label><input id="contactPhone" value="${isLogged()&&state.currentPhone?state.currentPhone:''}"></div><div class="field"><label>${t('subject')} *</label><input id="contactSubject"></div><div class="field"><label>${t('message')} *</label><textarea id="contactMessage"></textarea></div><button class="btn primary full" onclick="sendContact()">${t('send')}</button></div>`}
 function sendContact(){const p=document.getElementById('contactPhone')?.value.trim(),s=document.getElementById('contactSubject')?.value.trim(),m=document.getElementById('contactMessage')?.value.trim();if(!p||!s||!m){toast(t('noData'));return}const msgs=getMessages();msgs.unshift({phone:p,subject:s,message:m,date:new Date().toLocaleString('ar-SA')});setMessages(msgs);logActivity(`${state.lang==='ar'?'رسالة تواصل جديدة':'New contact message'}: ${p}`);const subjEl=document.getElementById('contactSubject'),msgEl=document.getElementById('contactMessage');if(subjEl)subjEl.value='';if(msgEl)msgEl.value='';toast(state.lang==='ar'?'تم إرسال الرسالة وسيتم الرد عليكم قريبًا ✓':'Your message has been sent, we will reply soon ✓')}
@@ -505,14 +537,30 @@ function applyUserFilter(list,f){
  if(f==='expiring')return list.filter(u=>u.status==='active'&&!u.banned&&daysLeft(u.expires)<=2);
  return list;
 }
-function admin(){const users=getUsers();const active=users.filter(u=>!u.banned&&u.status==='active').length;const paid=users.filter(u=>!u.banned&&u.status==='active'&&u.plan!=='بدون اشتراك').length;const banned=users.filter(u=>u.banned).length;const soon=users.filter(u=>u.status==='active'&&!u.banned&&daysLeft(u.expires)<=2).length;return `<div class="section-title"><h2>${t('admin')}</h2><span class="badge gold">${t('adminRole')}</span></div><div class="admin-grid">${statLink(t('subscribers'),active,'','active')}${statLink(t('payments'),paid,'green','paid')}${statLink(t('banned'),banned,'red','banned')}${statLink(t('expiring'),soon,'goldtxt','expiring')}</div><div class="admin-shortcuts"><a class="card shortcut" href="#/admin/users"><b>${t('users')}</b><span>›</span></a><a class="card shortcut" href="#/admin/permissions"><b>${t('permissions')}</b><span>›</span></a><a class="card shortcut" href="#/admin/contact"><b>${t('contactInbox')}</b><span>${getMessages().length}</span></a></div>`}
+function admin(){const users=getUsers();const active=users.filter(u=>!u.banned&&u.status==='active').length;const paid=users.filter(u=>!u.banned&&u.status==='active'&&u.plan!=='بدون اشتراك').length;const banned=users.filter(u=>u.banned).length;const soon=users.filter(u=>u.status==='active'&&!u.banned&&daysLeft(u.expires)<=2).length;return `<div class="section-title"><h2>${t('admin')}</h2><span class="badge gold">${t('adminRole')}</span></div><div class="admin-grid">${statLink(t('subscribers'),active,'','active')}${statLink(t('payments'),paid,'green','paid')}${statLink(t('banned'),banned,'red','banned')}${statLink(t('expiring'),soon,'goldtxt','expiring')}</div><div class="admin-shortcuts"><a class="card shortcut" href="#/admin/users"><b>${t('users')}</b><span>›</span></a><a class="card shortcut" href="#/admin/supervisors"><b>${t('supervisors')}</b><span>›</span></a><a class="card shortcut" href="#/admin/contact"><b>${t('contactInbox')}</b><span>${getMessages().length}</span></a></div>`}
 function daysLeft(date){if(!date||date==='—')return 999;return Math.ceil((new Date(date)-new Date())/86400000)}
 function adminUsers(){const initial=adminUserFilter;adminUserFilter='';return `<div class="section-title"><h2>${t('users')}</h2></div><div class="toolbar"><div class="search"><span class="sico">⌕</span><input id="userSearch" oninput="renderUserRows(this.value)" placeholder="${t('permissionSearch')}"></div></div><div class="card table-wrap"><table class="table"><thead><tr><th>${t('mobile')}</th><th>${t('plan')}</th><th>${t('loginDate')}</th><th>${t('status')}</th><th>${t('expires')}</th><th>${t('action')}</th></tr></thead><tbody id="userRows" data-filter="${initial}">${userRows('',initial)}</tbody></table></div>`}
 function userRows(q,f){return applyUserFilter(getUsers(),f||'').filter(u=>u.phone.includes(q||'')).map(u=>`<tr><td class="phone-cell">${u.phone}${u.supervisor?` <span class="badge gold">${t('supervisor')}</span>`:''}</td><td>${u.plan}</td><td>${u.start||'—'}</td><td><span class="badge ${u.banned?'red':u.status==='active'?'green':''}">${u.banned?t('banned'):u.status==='active'?t('active'):t('pending')}</span>${u.banned&&u.reason?`<div class="reason">${t('banReason')}: ${escapeHtml(u.reason)}</div>`:''}</td><td>${u.expires}</td><td class="actions"><button class="btn small" onclick="extendUser('${u.phone}')">${t('extend')}</button><button class="btn small" onclick="grantDiscountCode('${u.phone}')">${state.lang==='ar'?'كود خصم':'Discount'}</button><button class="btn small" onclick="assignSupervisor('${u.phone}')">${u.supervisor?t('unban')+' / ':''}${t('assign')}</button><button class="btn small danger" onclick="banUser('${u.phone}')">${u.banned?t('unban'):t('ban')}</button></td></tr>`).join('')||`<tr><td colspan="6" class="empty-cell">${t('noData')}</td></tr>`}
 function renderUserRows(q){const el=document.getElementById('userRows');if(el)el.innerHTML=userRows(q,el.dataset.filter)}
 function assignSupervisor(phone){const users=getUsers();const u=users.find(x=>x.phone===phone);if(!u)return;u.supervisor=!u.supervisor;setUsers(users);toast(t('assigned'));render()}
 function banUser(phone){const users=getUsers();const u=users.find(x=>x.phone===phone);if(!u)return;if(u.banned){u.banned=false;u.reason='';setUsers(users);render();return}const reason=prompt(t('banReason'));if(!reason)return;u.banned=true;u.reason=reason;setUsers(users);toast(t('bannedSuccess'));render()}
-function extendUser(phone){const users=getUsers();const u=users.find(x=>x.phone===phone);if(!u)return;const daysStr=prompt(t('extendPrompt'));if(!daysStr)return;const days=parseInt(daysStr,10);if(!days||days<=0)return;const base=(u.expires&&u.expires!=='—'&&new Date(u.expires)>new Date())?new Date(u.expires):new Date();base.setDate(base.getDate()+days);u.expires=base.toISOString().slice(0,10);u.status='active';u.banned=false;setUsers(users);toast(`${t('extend')} ✓`);render()}
+let extendTargetPhone=null;
+function extendUser(phone){
+ extendTargetPhone=phone;
+ const u=getUsers().find(x=>x.phone===phone);if(!u)return;
+ openModal(`<h2>${t('extend')}</h2><p class="login-help phone-cell">${phone}</p><div class="field"><label>${t('plan')}</label><select id="extendPlan"><option value="${t('oneMonth')}">${t('oneMonth')}</option><option value="${t('threeMonths')}">${t('threeMonths')}</option><option value="${t('sixMonths')}">${t('sixMonths')}</option></select></div><button class="btn primary full" onclick="confirmExtend()">${t('save')}</button>`);
+}
+function confirmExtend(){
+ const plan=document.getElementById('extendPlan')?.value;if(!plan||!extendTargetPhone)return;
+ const users=getUsers();const u=users.find(x=>x.phone===extendTargetPhone);if(!u)return;
+ const days=plan===t('oneMonth')?30:plan===t('threeMonths')?90:180;
+ const base=(u.expires&&u.expires!=='—'&&new Date(u.expires)>new Date())?new Date(u.expires):new Date();
+ base.setDate(base.getDate()+days);
+ u.plan=plan;u.expires=base.toISOString().slice(0,10);u.status='active';u.banned=false;u.extendedByAdmin=true;
+ setUsers(users);
+ logActivity(`${state.lang==='ar'?'تم تمديد اشتراك':'Subscription extended for'} ${u.phone} — ${plan}`);
+ toast(`${t('extend')} ✓`);closeModalUI();render();
+}
 function adminPermissions(){const users=getUsers();return `<div class="section-title"><h2>${t('permissionTitle')}</h2></div><div class="card permission-note"><p>${t('supervisorInfo')}</p></div><div class="toolbar"><div class="search"><span class="sico">⌕</span><input id="permSearch" oninput="renderPermRows(this.value)" placeholder="${t('permissionSearch')}"></div></div><div class="card table-wrap"><table class="table"><thead><tr><th>${t('mobile')}</th><th>${t('flagged')}</th><th>${t('action')}</th></tr></thead><tbody id="permRows">${permRows(users,'')}</tbody></table></div>`}
 function permRows(users,q){return users.filter(u=>u.phone.includes(q||'')).map(u=>`<tr><td class="phone-cell">${u.phone}</td><td>${u.flagged?`<span class="badge gold">${t('flagged')}</span>`:`<span class="muted">—</span>`}</td><td class="actions"><button class="btn small" onclick="assignSupervisor('${u.phone}')">${u.supervisor?t('supervisor'):t('assign')}</button><button class="btn small danger" onclick="banUser('${u.phone}')">${u.banned?t('unban'):t('ban')}</button></td></tr>`).join('')||`<tr><td colspan="3" class="empty-cell">${t('noData')}</td></tr>`}
 function renderPermRows(q){const el=document.getElementById('permRows');if(el)el.innerHTML=permRows(getUsers(),q)}
@@ -527,7 +575,7 @@ let idleTimer=null;
 function resetIdleTimer(){
  clearTimeout(idleTimer);
  if(!isLogged())return;
- idleTimer=setTimeout(()=>{if(isLogged()){toast(t('logoutDone'));logout()}},60000);
+ idleTimer=setTimeout(()=>{if(isLogged()){toast(t('logoutDone'));logout()}},300000);
 }
 ['mousemove','keydown','click','touchstart','scroll','wheel'].forEach(ev=>window.addEventListener(ev,resetIdleTimer,{passive:true}));
 function selectSymbol(s){if(!symbols[s])return;state.symbol=s;save();if(location.hash==='#/contracts')render();else go('#/contracts')}
@@ -539,7 +587,6 @@ function render(){
  if(path==='/'){
   if(state.role==='member'){
    if(isBannedNow()){layout(bannedScreen(),'/',false);return}
-   if(isSupervisor()){layout(supervisorPanel(),'/');return}
    layout(memberHome(),'/');return;
   }
   if(state.role==='admin'){layout(admin(),'/');return}
@@ -548,16 +595,16 @@ function render(){
  if(path==='/checkout'){if(!checkoutPlan){go('#/subscription');return}layout(checkoutPage(),path,false);return}
  if(path==='/subscription'){if(state.role==='visitor'){layout(subscription(),path,false);return}else{go('#/');return}}
  if(path==='/login'){layout(login(),path,false);return}
- if(path==='/contact'){layout(contact(),path,state.role!=='visitor'&&!isBannedNow()&&!isSupervisor());return}
+ if(path==='/contact'){layout(contact(),path,state.role!=='visitor'&&!isBannedNow());return}
  if(state.role==='visitor'){layout(publicHome(),'/');return}
- if(state.role==='member'&&(isBannedNow()||isSupervisor())){go('#/');return}
+ if(state.role==='member'&&isBannedNow()){go('#/');return}
+ if(path==='/manage-users'){layout(state.role==='member'&&isSupervisor()?supervisorPanel():`<div class="card empty"><h2>404</h2></div>`,path);return}
  if(path==='/contracts')layout(contracts(),path);
  else if(path==='/favorites')layout(favorites(),path);
  else if(path==='/alerts')layout(state.role==='admin'?adminAlertsPage():alerts(),path);
  else if(path==='/ratings')layout(ratingPage(),path);
  else if(path==='/admin')layout(admin(),path);
  else if(path==='/admin/users')layout(adminUsers(),path);
- else if(path==='/admin/permissions')layout(adminPermissions(),path);
  else if(path==='/admin/contact')layout(adminContact(),path);
  else if(path==='/admin/supervisors')layout(adminSupervisors(),path);
  else layout(`<div class="card empty"><h2>404</h2><p>${t('noData')}</p></div>`,'');

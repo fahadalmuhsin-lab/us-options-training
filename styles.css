@@ -67,8 +67,8 @@
 .strike{text-decoration:line-through;color:var(--muted);font-size:13px}
 
 .calc-card{padding:16px}
-.calc-header{display:grid;grid-template-columns:1fr 1fr 90px 34px;gap:8px;font-size:12px;color:var(--muted);padding:0 4px 8px}
-.calc-row{display:grid;grid-template-columns:1fr 1fr 90px 34px;gap:8px;margin-bottom:8px;align-items:center}
+.calc-header{display:grid;grid-template-columns:1fr 1fr 34px;gap:8px;font-size:12px;color:var(--muted);padding:0 4px 8px}
+.calc-row{display:grid;grid-template-columns:1fr 1fr 34px;gap:8px;margin-bottom:8px;align-items:center}
 .calc-row input{padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:#061221;color:var(--text)}
 .calc-net{text-align:center;font-weight:800;padding:10px 4px;border-radius:10px;background:#061221}
 .calc-net.green{color:var(--green)}.calc-net.red{color:var(--red)}
@@ -86,4 +86,22 @@
 
 .renew-price{text-align:center;font-size:20px;margin:14px 0}
 
-@media(max-width:760px){.calc-header,.calc-row{grid-template-columns:1fr 1fr 70px 28px}.pay-methods{flex-direction:column}}
+@media(max-width:760px){.calc-header,.calc-row{grid-template-columns:1fr 1fr 28px}.pay-methods{flex-direction:column}}
+
+.pw-field{position:relative}
+.pw-field input{width:100%;padding-inline-end:42px}
+.pw-eye{position:absolute;left:10px;top:50%;transform:translateY(-50%);background:none;border:0;cursor:pointer;font-size:16px;opacity:.55;padding:4px}
+.pw-eye.on{opacity:1}
+:root[dir="rtl"] .pw-eye{left:10px;right:auto}
+
+.extended-note{color:var(--gold);font-size:12px;font-weight:700;margin-bottom:10px}
+
+.sar-conv{font-size:11px;color:var(--muted);font-weight:600}
+
+.apple-pay-mark{display:inline-flex;align-items:center;gap:6px;background:#000;color:#fff;padding:10px 16px;border-radius:8px;font-weight:700}
+.pay-method .apple-pay-mark{background:transparent;padding:0}
+
+.rating-banner.static{border-color:var(--gold);color:var(--gold);margin-top:22px}
+
+.hero-falcon{width:340px}
+@media(max-width:760px){.hero-falcon{width:230px}}
